@@ -13,6 +13,10 @@ const destination = computed(() => {
     if (!id) return null;
     return defineAsyncComponent(() => import(`./${id}/${id}.vue`));
 });
+const logoSrc = computed(() => {
+    if (!route.params.id) return '';
+    return new URL(`./${route.params.id}/assets/img/logo.svg`, import.meta.url).href;
+});
 </script>
 
 <template>
@@ -22,7 +26,7 @@ const destination = computed(() => {
             <template #fallback>
                 <FullScreen>
                     <Vstack align="center" :spacing="7">
-                        <img :src="`/${route.params.id}.svg`" :alt="route.params.id" width="128" />
+                        <img :src="logoSrc" :alt="route.params.id" width="128" />
                         <h1>{{ data.appName }} {{ data.apps.names[route.params.id] }}</h1>
                         <Spinner />
                     </Vstack>
