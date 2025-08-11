@@ -1,7 +1,7 @@
 import { nextTick } from "vue";
 import { EDITOR_SETTINGS_VALUE, TAB_LEN } from "./data";
 import { AppGlobalSettings } from "@/assets/js/core/settings";
-export const handle_tab_enter = (e, editor, model) => {
+export const handle_tab_enter = (e, editor, model, editor_lines) => {
     if (!["Enter", "Tab"].includes(e.key)) return;
     const el = editor.value;
     if (!el) return;
@@ -37,6 +37,26 @@ export const handle_tab_enter = (e, editor, model) => {
         }
         const res = lines.join("\n") + insert;
         model.value = res + after;
+        parseValue(e, editor, model, editor_lines);
         nextTick(() => (el.selectionStart = el.selectionEnd = res.length));
     }
+};
+
+let rafId;
+export const parseValue = (_e, editor, model, lines) => {
+    cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(() => {
+        lines.value = editor.value.value.split("\n");
+    });
+};
+
+export const updateCursor = (text_input, model, cursor) => {
+    if (!text_input.value) return;
+    requestAnimationFrame(() => {
+        const pos = text_input.value.selectionStart;
+        const beforeCursor = model.value.slice(0, pos);
+        const line = beforeCursor.split("\n").length - 1;
+        const column = beforeCursor.split("\n").pop().length;
+        cursor.value = { line, column };
+    });
 };
