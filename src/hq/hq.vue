@@ -19,7 +19,7 @@ const unSupported = computed(() => {
     <GridStack columns="auto" class="launch">
         <appicon v-for="i in data.apps" v-bind="i" />
     </GridStack>
-    <Modal :shown="!SysStatus.browserFeatureSupport.file">
+    <Modal :shown="!unSupported.length > 0">
         <h1>お使いのブラウザでは機能が制限されます</h1>
         <p>以下の機能が使用不可、または制限がかかります。</p>
         <ul>
