@@ -20,7 +20,6 @@ const unSupported = computed(() => {
         <appicon v-for="i in data.apps" v-bind="i" />
     </GridStack>
     <Modal :shown="unSupported.length > 0">
-        {{ unSupported }}
         <h1>お使いのブラウザでは機能が制限されます</h1>
         <p>以下の機能が使用不可、または制限がかかります。</p>
         <ul>
