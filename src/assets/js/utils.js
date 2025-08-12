@@ -8,3 +8,11 @@ export const isSmartPhone = () => {
         return false;
     }
 };
+
+export const getElemPos = (target) => {
+    if (!target) throw new Error("Unable to find the target");
+    const rect = target.getBoundingClientRect();
+    const viewportLeft = rect.left + target.clientLeft;
+    const viewportTop = rect.top + target.clientTop;
+    return { viewportLeft, viewportTop };
+};

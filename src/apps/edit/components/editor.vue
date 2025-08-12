@@ -4,9 +4,11 @@ import { handle_tab_enter, parseValue, scrollToLine, updateCursor, } from '../as
 
 const text_input = ref(null)
 const canvas = ref(null)
+const carret = ref(null)
 
 const model = defineModel()
 const lines = ref([""])
+
 
 const cursor = reactive(
     {
@@ -20,13 +22,13 @@ const cursor = reactive(
 const onEnterTab = (e) => {
     handle_tab_enter(e, text_input, model, lines, cursor);
     nextTick(() => {
-        updateCursor(text_input, model, cursor, canvas);
+        updateCursor(text_input, model, cursor, canvas, carret);
     });
 }
 const onInput = (e) => {
     parseValue(e, text_input, model, lines);
     nextTick(() => {
-        updateCursor(text_input, model, cursor, canvas);
+        updateCursor(text_input, model, cursor, canvas, carret);
         scrollToLine(cursor.end.line, canvas)
     });
 }
@@ -72,7 +74,7 @@ onBeforeUnmount(() => {
             <div style="flex: 1; white-space: pre-wrap; word-break: break-word;" v-if="isSinglePoint">
                 <template v-if="i === cursor.end.line">
                     <span>{{ v.slice(0, cursor.end.column) }}</span>
-                    <span class="caret-parent"><span class="caret" v-show="focused" /></span>
+                    <span class="caret-parent"><span class="caret" v-show="focused" ref="carret" /></span>
                     <span>{{ v.slice(cursor.end.column) }}</span>
                 </template>
                 <template v-else>
@@ -97,7 +99,7 @@ onBeforeUnmount(() => {
                 </template>
                 <template v-else-if="i === cursor.end.line">
                     <span class="high">{{ v.slice(0, cursor.end.column) }}</span>
-                    <span class="caret-parent"><span class="caret" v-show="focused" /></span>
+                    <span class="caret-parent"><span class="caret" v-show="focused" ref="carret" /></span>
                     <span>{{ v.slice(cursor.end.column) }}</span>
                 </template>
                 <template v-else>
@@ -116,6 +118,8 @@ textarea {
     opacity: 0;
     border: 0;
     outline: 0;
+    width: 1em;
+    height: 1em;
 }
 
 .row_num {
@@ -165,7 +169,15 @@ span {
 }
 
 @keyframes blink {
+    0% {
+        opacity: 0;
+    }
+
     50% {
+        opacity: 1;
+    }
+
+    100% {
         opacity: 0;
     }
 }

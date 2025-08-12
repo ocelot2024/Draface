@@ -1,6 +1,7 @@
 import { nextTick } from "vue";
 import { EDITOR_SETTINGS_VALUE, TAB_LEN } from "./data";
 import { AppGlobalSettings } from "@/assets/js/core/settings";
+import { getElemPos } from "@/assets/js/utils";
 export const handle_tab_enter = (e, editor, model, editor_lines) => {
     if (!["Enter", "Tab"].includes(e.key)) return;
     const el = editor.value;
@@ -50,7 +51,7 @@ export const parseValue = (_e, editor, model, lines) => {
     });
 };
 
-export const updateCursor = (text_input, model, cursor, canvas) => {
+export const updateCursor = (text_input, model, cursor, canvas, carret) => {
     if (!text_input.value)
         cursor = {
             start: { line: 0, column: 0 },
@@ -67,6 +68,12 @@ export const updateCursor = (text_input, model, cursor, canvas) => {
         };
         cursor.start = indexToLineCol(start);
         cursor.end = indexToLineCol(end);
+        const cursor_pos = getElemPos(carret.value[0]);
+        text_input.value.style.left = cursor_pos.viewportLeft + "px";
+        text_input.value.style.top = cursor_pos.viewportTop + "px";
+        carret.value[0].style.animation = "none";
+        void carret.value[0].offsetWidth;
+        carret.value[0].style.animation = "";
         scrollToLine(cursor.end.line, canvas);
     });
 };
