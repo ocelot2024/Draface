@@ -51,12 +51,21 @@ export const parseValue = (_e, editor, model, lines) => {
 };
 
 export const updateCursor = (text_input, model, cursor) => {
-    if (!text_input.value) return;
+    if (!text_input.value)
+        cursor = {
+            start: { line: 0, column: 0 },
+            end: { line: 0, column: 0 },
+        };
     requestAnimationFrame(() => {
-        const pos = text_input.value.selectionStart;
-        const beforeCursor = model.value.slice(0, pos);
-        const line = beforeCursor.split("\n").length - 1;
-        const column = beforeCursor.split("\n").pop().length;
-        cursor.value = { line, column };
+        const start = text_input.value.selectionStart;
+        const end = text_input.value.selectionEnd;
+        const indexToLineCol = (index) => {
+            const beforeCursor = model.value.slice(0, index);
+            const line = beforeCursor.split("\n").length - 1;
+            const column = beforeCursor.split("\n").pop().length;
+            return { line, column };
+        };
+        cursor.start = indexToLineCol(start);
+        cursor.end = indexToLineCol(end);
     });
 };
