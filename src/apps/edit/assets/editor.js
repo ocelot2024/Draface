@@ -50,7 +50,7 @@ export const parseValue = (_e, editor, model, lines) => {
     });
 };
 
-export const updateCursor = (text_input, model, cursor) => {
+export const updateCursor = (text_input, model, cursor, canvas) => {
     if (!text_input.value)
         cursor = {
             start: { line: 0, column: 0 },
@@ -67,5 +67,15 @@ export const updateCursor = (text_input, model, cursor) => {
         };
         cursor.start = indexToLineCol(start);
         cursor.end = indexToLineCol(end);
+        scrollToLine(cursor.end.line, canvas);
     });
+};
+
+export const getLinePos = (target_index) => {
+    const lineHeight = 26;
+    return lineHeight * target_index;
+};
+
+export const scrollToLine = (line, canvas) => {
+    canvas.value.scrollTop = getLinePos(line);
 };

@@ -1,6 +1,6 @@
 <script setup>
 import { nextTick, onBeforeUnmount, onMounted, ref, computed, reactive } from 'vue';
-import { handle_tab_enter, parseValue, updateCursor, } from '../assets/editor';
+import { handle_tab_enter, parseValue, scrollToLine, updateCursor, } from '../assets/editor';
 
 const text_input = ref(null)
 const canvas = ref(null)
@@ -27,6 +27,7 @@ const onInput = (e) => {
     parseValue(e, text_input, model, lines);
     nextTick(() => {
         updateCursor(text_input, model, cursor, canvas);
+        scrollToLine(cursor.end.line, canvas)
     });
 }
 
@@ -53,31 +54,32 @@ onMounted(() => {
     text_input.value.addEventListener('keydown', onEnterTab)
     text_input.value.addEventListener('change', unFocus);
     text_input.value.addEventListener('click', oninput)
+    canvas.value.addEventListener('click', focus)
 })
 
 onBeforeUnmount(() => {
     text_input.value.removeEventListener('keydown', onEnterTab)
     text_input.value.removeEventListener('change', unFocus)
     text_input.value.removeEventListener('click', oninput)
+    canvas.value.removeEventListener('click', focus)
 })
 </script>
 
 <template>
-    <textarea id="editor" ref="text_input" v-model="model" @input="onInput"></textarea>
-    <div class="text-canvas">
+    <div class="text-canvas" ref="canvas">
         <div style="display: flex; font-size: large; gap: 2px;" v-for="(v, i) in lines" :key="i">
             <div class="row_num">{{ i + 1 }}</div>
-            <div style="flex: 1; white-space: pre-wrap; word-break: break-word;" ref="canvas" v-if="isSinglePoint">
+            <div style="flex: 1; white-space: pre-wrap; word-break: break-word;" v-if="isSinglePoint">
                 <template v-if="i === cursor.end.line">
                     <span>{{ v.slice(0, cursor.end.column) }}</span>
                     <span class="caret-parent"><span class="caret" v-show="focused" /></span>
                     <span>{{ v.slice(cursor.end.column) }}</span>
                 </template>
                 <template v-else>
-                    {{ v }}
+                    <span>{{ v }}</span>
                 </template>
             </div>
-            <div style="flex: 1; white-space: pre-wrap; word-break: break-word;" ref="canvas" v-else>
+            <div style="flex: 1; white-space: pre-wrap; word-break: break-word;" v-else>
                 <template v-if="cursor.start.line == i">
                     <span>
                         {{ v.slice(0, cursor.start.column) }}
@@ -104,6 +106,8 @@ onBeforeUnmount(() => {
             </div>
         </div>
     </div>
+    <textarea id="editor" ref="text_input" v-model="model" @input="onInput"
+        style="position: absolute; z-index: 0;"></textarea>
 </template>
 
 <style scoped>
@@ -112,9 +116,6 @@ textarea {
     opacity: 0;
     border: 0;
     outline: 0;
-    min-height: 100%;
-    width: 100vw;
-    font-size: large;
 }
 
 .row_num {
@@ -125,26 +126,29 @@ textarea {
 }
 
 .text-canvas {
-    position: static;
+    z-index: 1;
+    position: absolute;
     border: 0;
     outline: 0;
-    min-height: 100%;
+    height: 100%;
     width: 100vw;
     font-size: large;
-    font-family: monospace;
+    overflow-y: auto;
+    cursor: text;
+    padding-bottom: 30vh;
 }
 
 .caret-parent {
     position: relative;
     padding: 0;
     margin: 0;
-    height: 26px;
+    height: 21px;
 }
 
 .caret {
     position: absolute;
     inset: 0;
-    height: 26px;
+    height: 21px;
     width: 1px;
     background-color: var(--colour-primary);
     animation: blink 1s step-start infinite;
@@ -153,6 +157,11 @@ textarea {
 
 .high {
     background-color: var(--colour-primary);
+}
+
+span {
+    font-family: monospace;
+    font-size: 18px;
 }
 
 @keyframes blink {
