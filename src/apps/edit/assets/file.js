@@ -29,7 +29,19 @@ export const openAppFile = async (inst) => {
     return instance;
 };
 
-export class EditAppFile extends BaseFile {
+export class EditBaseFile extends BaseFile {
+    constructor(filename) {
+        super(filename);
+        this.history_stack = [];
+        this.history_counter = -1;
+        this.before_change_data = "";
+    }
+    onChange() {
+        this.history_stack.push(this.before_change_data);
+    }
+}
+
+export class EditAppFile extends EditBaseFile {
     constructor(filename) {
         super(filename);
         this.extension = "nfe";
@@ -38,7 +50,7 @@ export class EditAppFile extends BaseFile {
     }
 }
 
-export class PlainTextFile extends BaseFile {
+export class PlainTextFile extends EditBaseFile {
     constructor(filename) {
         super(filename);
         this.extension = extractExtension(filename);
