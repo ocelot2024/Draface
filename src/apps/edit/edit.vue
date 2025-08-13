@@ -30,6 +30,13 @@ const Menu = reactive(
                 DefineMenuItem("環境設定", () => show_settings.value = true, "above"),
                 DefineMenuItem('閉じる', () => router.back(), "above")
             ]
+        ),
+        DefineMenu(
+            "編集",
+            [
+                DefineMenuItem('もとに戻す'),
+                DefineMenuItem('やり直し')
+            ]
         )
     ])
 
