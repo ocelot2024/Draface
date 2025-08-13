@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import data from './assets/data';
+import data, { menuItems } from './assets/data';
 import appicon from './components/appicon.vue';
 import Unspported from './components/unspported.vue';
 import Hstack from '@/components/Hstack.vue';
@@ -8,7 +8,9 @@ import SidePanel from '@/components/SidePanel.vue';
 import Icon from '@/components/Icon.vue';
 import PanelItem from './components/PanelItem.vue';
 const show_pane = ref(true)
+const content_id = ref('apps')
 
+const menu = menuItems;
 </script>
 
 <template>
@@ -30,13 +32,14 @@ const show_pane = ref(true)
             </Hstack>
             <h1>Neffice</h1>
             <ul style="margin-top: 28px;">
-                <li>
-                    <PanelItem icon="apps">アプリ</PanelItem>
-                </li>
+                <PanelItem v-for="value in menu" :icon="value.icon" @click="content_id = value.item_id">{{ value.label }}
+                </PanelItem>
             </ul>
         </SidePanel>
         <div class="content-area">
-            <appicon v-for="i in data.apps" v-bind="i" />
+            <div style="background-color: transparent;" v-show="content_id == 'apps'">
+                <appicon v-for="i in data.apps" v-bind="i" />
+            </div>
         </div>
     </Hstack>
     <Unspported />
