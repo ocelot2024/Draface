@@ -12,7 +12,7 @@ const props = defineProps(
 )
 </script>
 <template>
-    <RouterLink :to="appURL">
+    <RouterLink :to="appURL" style="background-color: transparent;">
         <Vstack :spacing="7" class="appicon">
             <img :src="props.iconURL" alt="" width="128">
             <p>{{ appname }}</p>
@@ -22,5 +22,10 @@ const props = defineProps(
 <style scoped>
 .appicon {
     padding: 14px;
+    background-color: transparent;
+}
+
+* {
+    background-color: transparent;
 }
 </style>

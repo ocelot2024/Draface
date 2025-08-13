@@ -1,33 +1,45 @@
 <script setup>
+import { ref } from 'vue';
 import data from './assets/data';
-import GridStack from '@/components/GridStack.vue';
 import appicon from './components/appicon.vue';
-import Modal from '@/components/modal.vue';
-import { SysStatus } from '@/assets/js/core/states';
-import { translateData } from '@/assets/js/core/translations';
-import { computed } from 'vue';
-
-const unSupported = computed(() => {
-    return Object.entries(SysStatus.browserFeatureSupport)
-        .filter(([_, value]) => !value)
-        .map(([key]) => key);
-})
+import Unspported from './components/unspported.vue';
+import Hstack from '@/components/Hstack.vue';
+import SidePanel from '@/components/SidePanel.vue';
+import Icon from '@/components/Icon.vue';
+import PanelItem from './components/PanelItem.vue';
+const show_pane = ref(true)
 
 </script>
 
 <template>
-    <GridStack columns="auto" class="launch">
-        <appicon v-for="i in data.apps" v-bind="i" />
-    </GridStack>
-    <Modal :shown="unSupported.length > 0">
-        <h1>お使いのブラウザでは機能が制限されます</h1>
-        <p>以下の機能が使用不可、または制限がかかります。</p>
-        <ul>
-            <li v-for="(key, index) in unSupported" :key="index">
-                {{ translateData.Features[key] }}
-            </li>
-        </ul>
-    </Modal>
+    <Hstack -align="start" -justify="start">
+        <div v-show="!show_pane" class="closed_pane">
+            <button @click="show_pane = true">
+                <Icon>
+                    right_panel_close
+                </Icon>
+            </button>
+        </div>
+        <SidePanel v-show="show_pane">
+            <Hstack -justify="end">
+                <button @click="show_pane = false">
+                    <Icon>
+                        left_panel_close
+                    </Icon>
+                </button>
+            </Hstack>
+            <h1>Neffice</h1>
+            <ul style="margin-top: 28px;">
+                <li>
+                    <PanelItem icon="apps">アプリ</PanelItem>
+                </li>
+            </ul>
+        </SidePanel>
+        <div class="content-area">
+            <appicon v-for="i in data.apps" v-bind="i" />
+        </div>
+    </Hstack>
+    <Unspported />
 </template>
 <style scoped>
 .launch {
@@ -36,5 +48,35 @@ const unSupported = computed(() => {
 
 p {
     padding-top: 14px;
+}
+
+.content-area {
+    flex: 1;
+    background-color: var(--colour-foreground);
+    height: 100%;
+}
+
+button {
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+.closed_pane,
+.closed_pane * {
+    background-color: transparent;
+}
+
+.closed_pane {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+}
+
+ul,
+li {
+    list-style: none;
+    padding: 0;
+    vertical-align: middle;
 }
 </style>
