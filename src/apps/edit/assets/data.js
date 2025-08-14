@@ -1,3 +1,5 @@
+import { ref } from "vue";
+
 export const app_name = {
     short: "NFEdit",
     full: "Edit",
@@ -16,3 +18,5 @@ export let EDITOR_SETTINGS_VALUE = {
 };
 
 export const TAB_LEN = [2, 4, 8];
+
+export let WorkerStatus = { CanIbuildHash: true, workers: 0 };

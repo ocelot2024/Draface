@@ -4,7 +4,7 @@ import MenuBar from '@/components/MenuBar.vue';
 import MenuButton from '@/components/MenuButton.vue';
 import MenuItem from '@/components/MenuItem.vue';
 import router from '@/router';
-import { reactive, ref } from 'vue';
+import { provide, reactive, ref } from 'vue';
 import Editor from './components/editor.vue';
 import Hstack from '@/components/Hstack.vue';
 import About from './components/about.vue';
@@ -18,6 +18,8 @@ const show_about = ref(false)
 const show_settings = ref(false)
 const show_save_prompt = ref(false)
 const instance = reactive(new PlainTextFile('untitle'))
+
+provide('instance', instance);
 
 const Menu = reactive(
     [

@@ -1,6 +1,7 @@
 <script setup>
-import { nextTick, onBeforeUnmount, onMounted, ref, computed, reactive } from 'vue';
+import { nextTick, onBeforeUnmount, onMounted, ref, computed, reactive, inject } from 'vue';
 import { handle_tab_enter, parseValue, scrollToLine, updateCursor, } from '../assets/editor';
+import { detectDiff } from '../assets/file';
 
 const text_input = ref(null)
 const canvas = ref(null)
@@ -8,7 +9,7 @@ const carret = ref(null)
 
 const model = defineModel()
 const lines = ref([""])
-
+const instance = inject('instance')
 
 const cursor = reactive(
     {
@@ -20,9 +21,13 @@ const cursor = reactive(
 
 
 const onEnterTab = (e) => {
+    if (!["Enter", "Tab"].includes(e.key)) return;
     handle_tab_enter(e, text_input, model, lines, cursor);
     nextTick(() => {
         updateCursor(text_input, model, cursor, canvas, carret);
+        instance.before_change_data = lines.value;
+        console.log(instance.before_change_data)
+        detectDiff(instance.before_change_data, lines.value)
     });
 }
 const onInput = (e) => {
