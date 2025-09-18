@@ -1,5 +1,6 @@
 <script setup>
 import Vstack from '@/components/Vstack.vue';
+import { addRecentApps } from '../assets/core';
 const props = defineProps(
     {
         iconURL: {
@@ -12,7 +13,7 @@ const props = defineProps(
 )
 </script>
 <template>
-    <RouterLink :to="appURL" style="background-color: transparent;">
+    <RouterLink @click="addRecentApps({ ...props })" :to="appURL" style="background-color: transparent;">
         <Vstack :spacing="7" class="appicon">
             <img :src="props.iconURL" alt="" width="128">
             <p>{{ appname }}</p>

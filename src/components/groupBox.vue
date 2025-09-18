@@ -1,12 +1,11 @@
 <script setup>
-import Vstack from './Vstack.vue';
-const props = defineProps(['header', "bg"])
+const props = defineProps(['header', "bg", "headerStyle"])
 
 
 </script>
 <template>
     <div style="width: 100%;">
-        <small v-if="props.header">{{ props.header }}</small>
+        <small v-if="props.header" :class="headerStyle ?? 'normal'">{{ props.header }}</small>
         <div class="group" :style="{ backgroundColor: props.bg ?? 'var(--colour-foreground)' }">
             <slot></slot>
         </div>
@@ -21,5 +20,14 @@ const props = defineProps(['header', "bg"])
 <style>
 .group .listitem:last-child {
     border: 0;
+}
+
+.large {
+    font-size: larger;
+    font-weight: bold;
+}
+
+.normal {
+    font-size: inherit;
 }
 </style>

@@ -12,12 +12,19 @@ export let AppGlobalSettings = {
             indent_char: EDITOR_SETTINGS_VALUE.indent_char.Space,
             space_len: EDITOR_SETTINGS_VALUE.indent_length.four,
         },
+        HQ: {
+            recent_apps: [],
+        },
     },
 };
 
 const deepMerge = (target, source) => {
     for (const key in source) {
-        if (source[key] && typeof source[key] === "object" && !Array.isArray(source[key])) {
+        if (
+            source[key] &&
+            typeof source[key] === "object" &&
+            !Array.isArray(source[key])
+        ) {
             if (!target[key]) target[key] = {};
             deepMerge(target[key], source[key]);
         } else {
@@ -46,6 +53,11 @@ export const load_settings = () => {
             }
             delete json.global.langage;
         }
+        json.apps.HQ.recent_apps = json.apps.HQ.recent_apps.filter(function (
+            x
+        ) {
+            return !(x === null || x === undefined || x === "");
+        });
         deepMerge(AppGlobalSettings, json);
     }
 };
