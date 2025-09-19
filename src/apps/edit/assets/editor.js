@@ -82,12 +82,15 @@ export const updateCursor = (text_input, model, cursor, canvas, carret) => {
         };
         cursor.start = indexToLineCol(start);
         cursor.end = indexToLineCol(end);
-        const cursor_pos = getElemPos(carret.value[0]);
+        const cursor_pos = carret.value[0]
+            ? getElemPos(carret.value[0])
+            : { viewportLeft: 0, viewportTop: 0 };
         text_input.value.style.left = cursor_pos.viewportLeft + "px";
         text_input.value.style.top = cursor_pos.viewportTop + "px";
-        carret.value[0].style.animation = "none";
-        void carret.value[0].offsetWidth;
-        carret.value[0].style.animation = "";
+        if (carret.value[0]) {
+            carret.value[0].style.animation = "none";
+            carret.value[0].style.animation = "";
+        }
         scrollToLine(cursor.end.line, canvas);
     });
 };
