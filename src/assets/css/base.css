@@ -1,0 +1,13 @@
+@import url(./var.css);
+body {
+    background-color: var(--background-1);
+}
+body,
+body * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: var(--font-size-1);
+    color: var(--text-primary);
+    font-weight: var(--font-weight-1);
+}
