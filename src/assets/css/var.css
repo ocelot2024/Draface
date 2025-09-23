@@ -25,7 +25,7 @@
     /**Surface**/
     --background-0: var(--colour-gray-50);
     --background-1: var(--colour-gray-100);
-    --background-2: var(--colour-gray-200);
+    --background-2: var(--colour-gray-300);
     --background-primary-1: var(--colour-blue);
     /*Base spacings*/
     --spacing-0: 1px;
@@ -33,12 +33,16 @@
     --spacing-2: 8px;
     --spacing-3: 12px;
     --spacing-4: 18px;
+    --spacing-8: 36px;
     /*Font sizes*/
     --font-size-0: 10px;
     --font-size-1: 13px;
     --font-size-2: 18px;
+    --font-size-3: 25px;
+    --font-size-4: 30px;
     /*Font Weight*/
     --font-weight-1: 500;
+    --font-weight-2: 600;
     /*border*/
     --border-1: var(--colour-gray-500) 1px solid;
     --border-1-hover: var(--colour-gray-400) 2px solid;

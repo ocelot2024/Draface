@@ -38,6 +38,13 @@ button[data-variant="simple"] {
     border: 0;
 }
 
+button[data-variant="ini"] {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background-color: transparent;
+}
+
 button[data-block="true"] {
     display: block;
     width: 100%;
