@@ -1,30 +1,53 @@
 :root {
-    --colour-primary: #44aae6;
-    --colour-secondary: #7a6c4d;
-    --colour-accent: #cc933d;
-
-    --colour-background: #f1f1f6;
-    --colour-foreground: #fff;
-    --colour-surface: #ececec;
-    --colour-blurred: #ffffff80;
-    --colour-text: #111;
-    --colour-text-inverse: #ffffff;
-    --colour-text-muted: #888888;
-    --colour-text-primary: #ffffff;
-
-    --colour-border: #c7c7c7;
-    --colour-border-light: #eeeeee;
-    --colour-shadow: rgba(0, 0, 0, 0.05);
-    --colour-shadow-2: rgba(0, 0, 0, 0.3);
-
-    --colour-link: var(--colour-primary);
-    --colour-link-hover: #d9a842;
-
-    --colour-success: #4caf50;
-    --colour-warning: #ff9800;
-    --colour-error: #f44336;
-    --colour-info: #2196f3;
-    --colour-disabled: #cccccc;
-
-    --colour-gradient-primary: linear-gradient(45deg, #eac163, #f5deb3);
+    /*Base colours*/
+    --colour-red: #ff3b30;
+    --colour-blue: #007aff;
+    --colour-green: #28cd41;
+    --colour-orange: #ff9500;
+    --colour-gray-50: #fafafa;
+    --colour-gray-100: #f5f5f5;
+    --colour-gray-200: #eeeeee;
+    --colour-gray-300: #e0e0e0;
+    --colour-gray-400: #bdbdbd;
+    --colour-gray-500: #9e9e9e;
+    --colour-gray-600: #757575;
+    --colour-gray-700: #616161;
+    --colour-gray-800: #424242;
+    --colour-gray-900: #212121;
+    /*Semantic Colours*/
+    --colour-error: var(--colour-red);
+    --colour-success: var(--colour-green);
+    --colour-warning: var(--colour-orange);
+    --text-primary: #000000d9;
+    --text-inverse: var(--colour-gray-50);
+    --text-muted: var(--colour-gray-400);
+    /*Background*/
+    /**Surface**/
+    --background-0: var(--colour-gray-50);
+    --background-1: var(--colour-gray-100);
+    --background-2: var(--colour-gray-300);
+    --background-primary-1: var(--colour-blue);
+    /*Base spacings*/
+    --spacing-0: 1px;
+    --spacing-1: 4px;
+    --spacing-2: 8px;
+    --spacing-3: 12px;
+    --spacing-4: 18px;
+    --spacing-8: 36px;
+    /*Font sizes*/
+    --font-size-0: 10px;
+    --font-size-1: 13px;
+    --font-size-2: 18px;
+    --font-size-3: 25px;
+    --font-size-4: 30px;
+    /*Font Weight*/
+    --font-weight-1: 500;
+    --font-weight-2: 600;
+    /*border*/
+    --border-1: var(--colour-gray-500) 1px solid;
+    --border-1-hover: var(--colour-gray-400) 2px solid;
+    --border-radius-1: 1px;
+    --border-radius-2: 2px;
+    --border-radius-3: 4px;
+    --border-radius-4: 10px;
 }
