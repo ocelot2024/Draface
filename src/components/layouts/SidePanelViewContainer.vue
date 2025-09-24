@@ -4,7 +4,12 @@ import SidePanel from './SidePanel.vue';
 <template>
     <div class="pane-container">
         <SidePanel>
-            <slot name="pane-item"></slot>
+            <template #main>
+                <slot name="pane-item" />
+            </template>
+            <template #footer>
+                <slot name="pane-footer" />
+            </template>
         </SidePanel>
         <div class="contents-area">
             <slot name="content"></slot>

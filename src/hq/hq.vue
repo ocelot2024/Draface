@@ -1,7 +1,9 @@
 <script setup>
+import Button from '@/components/base/Button.vue';
 import SidePanelListContainer from '@/components/base/SidePanelListContainer.vue';
 import SidePanelListItem from '@/components/base/SidePanelListItem.vue';
 import SidePanelViewContainer from '@/components/layouts/SidePanelViewContainer.vue';
+import { showInstallPrompt, registerInstallPrompt, installPrompt } from '@/core/pwa';
 import { Translated } from '@/store/translate';
 import { ref } from 'vue';
 
@@ -12,6 +14,7 @@ const sidePanelItems = [
     { id: 'to_recent', content: Translated.data.hq.navigation.to_recent }
 
 ]
+registerInstallPrompt();
 </script>
 <template>
     <SidePanelViewContainer>
@@ -23,6 +26,9 @@ const sidePanelItems = [
                     {{ value.content }}
                 </SidePanelListItem>
             </SidePanelListContainer>
+        </template>
+        <template #pane-footer>
+            <Button :block="true" variant="simple" @click="showInstallPrompt()" v-if="installPrompt">install</Button>
         </template>
     </SidePanelViewContainer>
 </template>
