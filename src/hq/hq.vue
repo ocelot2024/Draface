@@ -5,7 +5,7 @@ import SidePanelListItem from '@/components/base/SidePanelListItem.vue';
 import SidePanelViewContainer from '@/components/layouts/SidePanelViewContainer.vue';
 import { showInstallPrompt, registerInstallPrompt, installPrompt } from '@/core/pwa';
 import { Translated } from '@/store/translate';
-import { onMounted, reactive, ref } from 'vue';
+import { reactive, ref } from 'vue';
 import HomeView from './views/HomeView.vue';
 import router from '@/router';
 
