@@ -23,15 +23,18 @@ const appBox = reactive({
     bottom: 'auto',
     width: '80px',
     height: '80px',
+    transition: 'none',
     shown: false
 });
 
 const setAppView = (pos) => {
+    appBox.transition = 'none'
     appBox.top = pos.top + 'px';
     appBox.left = pos.left + 'px';
-    appBox.width = pos.width + 'px';
-    appBox.height = pos.height + 'px';
+    appBox.width = 80 + 'px';
+    appBox.height = 80 + 'px';
     appBox.shown = true;
+    appBox.transition = 'all 150ms cubic-bezier(1, 0.08, 0, 0.86)'
     setTimeout(() => {
         appBox.top = '0px';
         appBox.left = '0px';
@@ -40,7 +43,7 @@ const setAppView = (pos) => {
         appBox.width = '100%';
         appBox.height = '100%';
         router.push('/app/edit')
-    }, 50);
+    }, 100);
 };
 router.beforeResolve((to) => {
     console.log(to)
@@ -78,7 +81,8 @@ router.beforeResolve((to) => {
         right: appBox.right,
         bottom: appBox.bottom,
         width: appBox.width,
-        height: appBox.height
+        height: appBox.height,
+        transition: appBox.transition
     }">
         <RouterView name="app" />
     </div>
@@ -89,7 +93,7 @@ router.beforeResolve((to) => {
     position: fixed;
     background-color: var(--background-1);
     border-radius: var(--border-radius-4);
-    transition: all 150ms cubic-bezier(1, 0.08, 0, 0.86);
+    transition: none;
     z-index: 999;
 }
 </style>
