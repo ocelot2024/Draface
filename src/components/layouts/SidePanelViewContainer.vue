@@ -23,4 +23,8 @@ import SidePanel from './SidePanel.vue';
     min-height: 100vh;
     align-items: stretch;
 }
+
+.contents-area {
+    flex: 1;
+}
 </style>
