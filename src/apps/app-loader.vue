@@ -1,37 +1,18 @@
 <script setup>
-import FullScreen from '@/components/FullScreen.vue';
-import Vstack from '@/components/Vstack.vue';
-import data from '@/assets/data';
-import Spinner from '@/components/spinner.vue';
 import { useRoute } from 'vue-router';
-import { computed, defineAsyncComponent } from 'vue';
+import apps from './apps';
+import router from '@/router';
+import { defineAsyncComponent } from 'vue';
+import AppLodingComponent from './app-loding-component.vue';
+const appData = apps.find((v) => useRoute().params.id == v.id);
+if (!appData) router.replace('/')
 
-const route = useRoute();
-
-const destination = computed(() => {
-    const id = route.params.id;
-    if (!id) return null;
-    return defineAsyncComponent(() => import(`./${id}/${id}.vue`));
-});
-const logoSrc = computed(() => {
-    if (!route.params.id) return '';
-    return new URL(`./${route.params.id}/assets/img/logo.svg`, import.meta.url).href;
-});
+const App = defineAsyncComponent({
+    loader: () => import(`./${appData.id}/${appData.id}.vue`),
+    loadingComponent: AppLodingComponent
+})
 </script>
-
 <template>
-    <div>
-        <Suspense>
-            <component :is="destination" />
-            <template #fallback>
-                <FullScreen>
-                    <Vstack align="center" :spacing="7">
-                        <img :src="logoSrc" :alt="route.params.id" width="128" />
-                        <h1>{{ data.appName }} {{ data.apps.names[route.params.id] }}</h1>
-                        <Spinner />
-                    </Vstack>
-                </FullScreen>
-            </template>
-        </Suspense>
-    </div>
+    <App />
 </template>
+<style scoped></style>
