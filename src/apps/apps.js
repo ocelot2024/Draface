@@ -1,4 +1,4 @@
-import editLogo from "./Edit/assets/logo.svg?no-inline";
+import editLogo from "./edit/assets/logo.svg?no-inline";
 export default [
     {
         name: "Edit",

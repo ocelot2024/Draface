@@ -5,9 +5,10 @@ import SidePanelListItem from '@/components/base/SidePanelListItem.vue';
 import SidePanelViewContainer from '@/components/layouts/SidePanelViewContainer.vue';
 import { showInstallPrompt, registerInstallPrompt, installPrompt } from '@/core/pwa';
 import { Translated } from '@/store/translate';
-import { reactive, ref } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import HomeView from './views/HomeView.vue';
 import router from '@/router';
+import { useRoute } from 'vue-router';
 
 const sidePanelItems = [
     { id: 'home', content: Translated.data.hq.navigation.to_home },
@@ -26,8 +27,18 @@ const appBox = reactive({
     transition: 'none',
     shown: false
 });
-
-const setAppView = (pos) => {
+const showAppBox = () => {
+    appBox.shown = true;
+    appBox.top = '0px';
+    appBox.left = '0px';
+    appBox.right = '0px';
+    appBox.bottom = '0px';
+    appBox.width = '100%';
+    appBox.height = '100%';
+}
+const setAppView = (data) => {
+    const pos = data[0];
+    const appData = data[1];
     appBox.transition = 'none'
     appBox.top = pos.top + 'px';
     appBox.left = pos.left + 'px';
@@ -36,22 +47,18 @@ const setAppView = (pos) => {
     appBox.shown = true;
     appBox.transition = 'all 150ms cubic-bezier(1, 0.08, 0, 0.86)'
     setTimeout(() => {
-        appBox.top = '0px';
-        appBox.left = '0px';
-        appBox.right = '0px';
-        appBox.bottom = '0px';
-        appBox.width = '100%';
-        appBox.height = '100%';
-        router.push('/app/edit')
+        showAppBox()
+        router.push('/app/' + appData.id)
     }, 100);
 };
-router.beforeResolve((to) => {
-    console.log(to)
+const isAppPage = (to) => {
     if (to.name == "root")
         appBox.shown = false;
     else
-        appBox.shown = true;
-})
+        showAppBox();
+}
+router.beforeResolve(isAppPage)
+onMounted(() => isAppPage(useRoute()))
 </script>
 
 <template>

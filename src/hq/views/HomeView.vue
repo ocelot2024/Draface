@@ -14,7 +14,7 @@ defineEmits(['launchApp'])
         </div>
         <div class="apps">
             <div v-for="value in appindex" :key="value.id" class="app-container"
-                @click="$emit('launchApp', getElementPos($event.target))">
+                @click="$emit('launchApp', [getElementPos($event.target), value])">
                 <div class="app" :style="{ backgroundImage: `url(${value.icon})` }"></div>
                 <div class="app-name">{{ value.name }}</div>
             </div>

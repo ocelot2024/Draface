@@ -2,20 +2,17 @@
 import { useRoute } from 'vue-router';
 import apps from './apps';
 import router from '@/router';
+import { defineAsyncComponent } from 'vue';
+import AppLodingComponent from './app-loding-component.vue';
 const appData = apps.find((v) => useRoute().params.id == v.id);
 if (!appData) router.replace('/')
+
+const App = defineAsyncComponent({
+    loader: () => import(`./${appData.id}/${appData.id}.vue`),
+    loadingComponent: AppLodingComponent
+})
 </script>
 <template>
-    <div class="loading-wrapper">
-        <img :src="appData.icon" width="80">
-    </div>
+    <App />
 </template>
-<style scoped>
-.loading-wrapper {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-</style>
+<style scoped></style>
