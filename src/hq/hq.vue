@@ -25,7 +25,8 @@ const appBox = reactive({
     width: '80px',
     height: '80px',
     transition: 'none',
-    shown: false
+    shown: false,
+    opacity: 0
 });
 const showAppBox = () => {
     appBox.shown = true;
@@ -35,21 +36,22 @@ const showAppBox = () => {
     appBox.bottom = '0px';
     appBox.width = '100%';
     appBox.height = '100%';
+    appBox.opacity = 1;
 }
 const setAppView = (data) => {
     const pos = data[0];
     const appData = data[1]
-    router.push('/app/' + appData.id)
     appBox.transition = 'none'
     appBox.top = pos.top + 'px';
     appBox.left = pos.left + 'px';
     appBox.width = 80 + 'px';
     appBox.height = 80 + 'px';
     appBox.shown = true;
+    appBox.opacity = 0
     appBox.transition = 'all 150ms cubic-bezier(1, 0.08, 0, 0.86)'
     setTimeout(() => {
-        showAppBox()
         router.push('/app/' + appData.id)
+        showAppBox()
     }, 100);
 };
 const isAppPage = (to) => {
@@ -90,7 +92,8 @@ onMounted(() => isAppPage(useRoute()))
         bottom: appBox.bottom,
         width: appBox.width,
         height: appBox.height,
-        transition: appBox.transition
+        transition: appBox.transition,
+        opacity: appBox.opacity
     }">
         <RouterView name="app" />
     </div>
