@@ -38,7 +38,8 @@ const showAppBox = () => {
 }
 const setAppView = (data) => {
     const pos = data[0];
-    const appData = data[1];
+    const appData = data[1]
+    router.push('/app/' + appData.id)
     appBox.transition = 'none'
     appBox.top = pos.top + 'px';
     appBox.left = pos.left + 'px';
@@ -48,7 +49,6 @@ const setAppView = (data) => {
     appBox.transition = 'all 150ms cubic-bezier(1, 0.08, 0, 0.86)'
     setTimeout(() => {
         showAppBox()
-        router.push('/app/' + appData.id)
     }, 100);
 };
 const isAppPage = (to) => {
