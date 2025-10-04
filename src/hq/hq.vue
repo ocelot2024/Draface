@@ -106,5 +106,6 @@ onMounted(() => isAppPage(useRoute()))
     border-radius: var(--border-radius-4);
     transition: none;
     z-index: 999;
+    overflow-y: auto;
 }
 </style>
