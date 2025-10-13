@@ -12,8 +12,8 @@ const root = useTemplateRef('button')
 defineExpose({ el: root })
 </script>
 <template>
-    <button @click="$emit('click')" :data-variant="props.variant" :data-block="props.block" :disabled="props.disabled"
-        ref="button">
+    <button @click="$emit('click', $event)" :data-variant="props.variant" :data-block="props.block"
+        :disabled="props.disabled" ref="button">
         <slot />
     </button>
 </template>
