@@ -1,5 +1,5 @@
 <script setup>
-import Button from '@/components/base/Button.vue';
+import Button from '@/components/base/BaseButton.vue';
 import SidePanelListContainer from '@/components/base/SidePanelListContainer.vue';
 import SidePanelListItem from '@/components/base/SidePanelListItem.vue';
 import SidePanelViewContainer from '@/components/layouts/SidePanelViewContainer.vue';

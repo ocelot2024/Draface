@@ -12,4 +12,9 @@ export default {
             apps: "アプリ",
         },
     },
+    edit: {
+        menubar: {
+            file: "ファイル",
+        },
+    },
 };

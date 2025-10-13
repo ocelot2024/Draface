@@ -19,6 +19,7 @@
     --colour-success: var(--colour-green);
     --colour-warning: var(--colour-orange);
     --text-primary: #000000d9;
+    --text-secondary: #000000a9;
     --text-inverse: var(--colour-gray-50);
     --text-muted: var(--colour-gray-400);
     /*Background*/
@@ -26,6 +27,7 @@
     --background-0: var(--colour-gray-50);
     --background-1: var(--colour-gray-100);
     --background-2: var(--colour-gray-300);
+    --background-overlay: #e5e5e780;
     --background-primary-1: var(--colour-blue);
     /*Base spacings*/
     --spacing-0: 1px;
@@ -52,4 +54,6 @@
     --border-radius-2: 2px;
     --border-radius-3: 4px;
     --border-radius-4: 10px;
+
+    --blur-1: blur(14px);
 }

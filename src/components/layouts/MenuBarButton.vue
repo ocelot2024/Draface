@@ -26,7 +26,7 @@ const onClick = (e) => {
         <Button variant="simple" ref="menuButton">{{ label }}</Button>
         <Teleport defer to=".menu-bar-parent">
             <div class="blur" :style="{ left: boxPosition }" v-show="boxShow">
-                <p v-for="value in 10">{{ value }}</p>
+                <slot></slot>
             </div>
         </Teleport>
     </div>
