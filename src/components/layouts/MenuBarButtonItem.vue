@@ -2,22 +2,30 @@
 import { KeyNames } from '@/assets/staticData/keys';
 import { ref } from 'vue';
 
-const props = defineProps(
-    {
-        keyBind: Array,
+const props = defineProps({
+    keyBind: {
+        type: Array,
         default: () => [],
-        validator(value, _props) {
-            for (let i = 0; i < value.length; i++) {
-                if (KeyNames.includes(value[i])) continue
-                else console.log(value[i] + ' is not valid key.')
-            }
+        validator(value) {
+            return value.every(v => KeyNames.includes(v))
         }
+    },
+    handler: {
+        type: Function,
+        default: () => { },
     }
-)
+})
+
 const KeyBind = ref(props.keyBind)
+
+const clicked = (e) => {
+    e.preventDefault();
+    props.handler();
+}
+
 </script>
 <template>
-    <div class="item">
+    <div class="item" @click="clicked">
         <div class="label">
             <slot></slot>
         </div>
