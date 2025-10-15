@@ -6,14 +6,17 @@ const menuButton = useTemplateRef('menuButton')
 const boxPosition = ref(null)
 const boxShow = ref(false)
 onMounted(() => {
-    const pos = menuButton.value.el.getClientRects();
-    boxPosition.value = pos[0].left + 'px';
     window.addEventListener('click', onClick)
 })
+const init = () => {
+    const pos = menuButton.value.el.getClientRects();
+    boxPosition.value = pos[0].left + 'px';
+}
 onBeforeUnmount(() => {
     window.removeEventListener('click', onClick)
 })
 const onClick = (e) => {
+    init();
     if (e.target == menuButton.value.el) {
         boxShow.value = !boxShow.value;
     } else {
