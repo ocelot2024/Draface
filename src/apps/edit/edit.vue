@@ -4,20 +4,37 @@ import MenuBarButton from '@/components/layouts/MenuBarButton.vue';
 import MenuBarButtonItem from '@/components/layouts/MenuBarButtonItem.vue';
 import MenuBarButtonItemDevider from '@/components/layouts/MenuBarButtonItemDevider.vue';
 import { Translated } from '@/store/translate';
+import { onMounted, provide, reactive } from 'vue';
+import { Editor } from './js/editor';
+import { pickFile } from '@/core/file';
+import editorArea from './components/editor-area.vue';
+
+const instance = reactive(new Editor());
+
+provide('instance', instance)
+
+const start_with_new = () => {
+    Object.assign(instance, new Editor());
+}
 </script>
 <template>
     <div class="app">
         <MenuBar>
             <MenuBarButton :label="Translated.data.edit.menubar.file">
-                <MenuBarButtonItem>新規</MenuBarButtonItem>
+                <MenuBarButtonItem :key-bind="['Ctrl', 'N']" :handler="start_with_new">新規</MenuBarButtonItem>
                 <MenuBarButtonItemDevider />
-                <MenuBarButtonItem :key-bind="['Ctrl', 'Q']">閉じる</MenuBarButtonItem>
+                <MenuBarButtonItem :key-bind="['Ctrl', 'Q']" :handler="() => pickFile(['*', true])">閉じる
+                </MenuBarButtonItem>
             </MenuBarButton>
         </MenuBar>
+        <editorArea />
     </div>
 </template>
 <style scoped>
 .app {
     position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
 }
 </style>

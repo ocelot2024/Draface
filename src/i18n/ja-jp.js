@@ -16,5 +16,8 @@ export default {
         menubar: {
             file: "ファイル",
         },
+        file: {
+            default_name: "空のテキスト",
+        },
     },
 };
