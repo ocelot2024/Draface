@@ -18,6 +18,7 @@
     --colour-error: var(--colour-red);
     --colour-success: var(--colour-green);
     --colour-warning: var(--colour-orange);
+    --colour-primary: var(--colour-blue);
     --text-primary: #000000d9;
     --text-secondary: #000000a9;
     --text-inverse: var(--colour-gray-50);
