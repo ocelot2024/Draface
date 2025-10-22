@@ -1,6 +1,6 @@
 export default {
     brand: {
-        normal: "Neffice",
+        normal: "Draface",
     },
     hq: {
         navigation: {

@@ -1,7 +1,7 @@
 {
-    "name": "Neffice",
+    "name": "Draface",
     "display": "standalone",
-    "start_url": "/Neffice/",
+    "start_url": "/Draface/",
     "icons": [
         {
             "src": "windows11/SmallTile.scale-100.png",
