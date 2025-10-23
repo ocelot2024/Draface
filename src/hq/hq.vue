@@ -9,7 +9,6 @@ import { onMounted, reactive, ref } from 'vue';
 import HomeView from './views/HomeView.vue';
 import router from '@/router';
 import { useRoute } from 'vue-router';
-import GitHubIcon from '../assets/img/github-mark.svg'
 import Modal from '@/components/overlay/Modal.vue';
 import AboutView from './views/AboutView.vue';
 
