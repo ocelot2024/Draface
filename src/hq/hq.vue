@@ -9,6 +9,7 @@ import { onMounted, reactive, ref } from 'vue';
 import HomeView from './views/HomeView.vue';
 import router from '@/router';
 import { useRoute } from 'vue-router';
+import GitHubIcon from '../assets/img/github-mark.svg'
 
 const sidePanelItems = [
     { id: 'home', content: Translated.data.hq.navigation.to_home },
@@ -77,7 +78,10 @@ onMounted(() => isAppPage(useRoute()))
         </template>
         <template #pane-footer>
             <Button :block="true" variant="simple" @click="showInstallPrompt()" v-if="installPrompt">
-                install
+                {{ Translated.data.hq.navigation.install_pwa }}
+            </Button>
+            <Button :block="true" variant="simple">
+                {{ Translated.data.hq.navigation.about }}
             </Button>
         </template>
         <template #content>
