@@ -29,8 +29,8 @@ defineEmits(['close'])
 .modal-container {
     min-width: 100px;
     min-height: 100px;
-    max-width: 60vw;
-    max-height: 50vh;
+    max-width: 750px;
+    max-height: 1000px;
     background-color: var(--background-1);
     border-radius: var(--border-radius-4);
     transition: all .5s ease-in-out;

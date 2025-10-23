@@ -19,6 +19,7 @@
     --colour-success: var(--colour-green);
     --colour-warning: var(--colour-orange);
     --text-primary: #000000d9;
+    --text-secondary: var(--colour-gray-800);
     --text-inverse: var(--colour-gray-50);
     --text-muted: var(--colour-gray-400);
     /*Background*/

@@ -13,5 +13,8 @@ export default {
             home: "ホーム",
             apps: "アプリ",
         },
+        about: {
+            describe: "シンプルなオフィススイート",
+        },
     },
 };

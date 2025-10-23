@@ -10,6 +10,10 @@ import HomeView from './views/HomeView.vue';
 import router from '@/router';
 import { useRoute } from 'vue-router';
 import GitHubIcon from '../assets/img/github-mark.svg'
+import Modal from '@/components/overlay/Modal.vue';
+import AboutView from './views/AboutView.vue';
+
+const showAboutModal = ref(false);
 
 const sidePanelItems = [
     { id: 'home', content: Translated.data.hq.navigation.to_home },
@@ -80,7 +84,7 @@ onMounted(() => isAppPage(useRoute()))
             <Button :block="true" variant="simple" @click="showInstallPrompt()" v-if="installPrompt">
                 {{ Translated.data.hq.navigation.install_pwa }}
             </Button>
-            <Button :block="true" variant="simple">
+            <Button :block="true" variant="simple" @click="showAboutModal = true">
                 {{ Translated.data.hq.navigation.about }}
             </Button>
         </template>
@@ -88,6 +92,10 @@ onMounted(() => isAppPage(useRoute()))
             <HomeView v-if="viewSelector === 'home'" @launch-app="setAppView($event)" />
         </template>
     </SidePanelViewContainer>
+
+    <Modal @close="showAboutModal = false" v-show="showAboutModal">
+        <AboutView />
+    </Modal>
 
     <div v-show="appBox.shown" class="app-container" :style="{
         top: appBox.top,
