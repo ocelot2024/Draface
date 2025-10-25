@@ -68,6 +68,7 @@ textarea {
     gap: var(--spacing-5);
     width: 100%;
     overflow-wrap: anywhere;
+    user-select: none;
 }
 
 .line-counter {
@@ -79,6 +80,7 @@ textarea {
 
 .line-content-container {
     vertical-align: baseline;
+    user-select: text;
 }
 
 .line * {
