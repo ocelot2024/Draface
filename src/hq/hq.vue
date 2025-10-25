@@ -5,10 +5,13 @@ import SidePanelListItem from '@/components/base/SidePanelListItem.vue';
 import SidePanelViewContainer from '@/components/layouts/SidePanelViewContainer.vue';
 import { showInstallPrompt, registerInstallPrompt, installPrompt } from '@/core/pwa';
 import { Translated } from '@/store/translate';
-import { onMounted, reactive, ref } from 'vue';
-import HomeView from './views/HomeView.vue';
+import { defineAsyncComponent, onMounted, reactive, ref } from 'vue';
 import router from '@/router';
 import { useRoute } from 'vue-router';
+import Modal from '@/components/overlay/Modal.vue';
+import Spinner from '@/components/base/Spinner.vue';
+
+const showAboutModal = ref(false);
 
 const sidePanelItems = [
     { id: 'home', content: Translated.data.hq.navigation.to_home },
@@ -62,6 +65,15 @@ const isAppPage = (to) => {
 }
 router.beforeResolve(isAppPage)
 onMounted(() => isAppPage(useRoute()))
+
+const HomeView = defineAsyncComponent({
+    loader: () => import('./views/HomeView.vue'),
+    loadingComponent: Spinner
+})
+const AboutView = defineAsyncComponent({
+    loader: () => import('./views/AboutView.vue'),
+    loadingComponent: Spinner
+})
 </script>
 
 <template>
@@ -77,13 +89,22 @@ onMounted(() => isAppPage(useRoute()))
         </template>
         <template #pane-footer>
             <Button :block="true" variant="simple" @click="showInstallPrompt()" v-if="installPrompt">
-                install
+                {{ Translated.data.hq.navigation.install_pwa }}
+            </Button>
+            <Button :block="true" variant="simple" @click="showAboutModal = true">
+                {{ Translated.data.hq.navigation.about }}
             </Button>
         </template>
         <template #content>
-            <HomeView v-if="viewSelector === 'home'" @launch-app="setAppView($event)" />
+            <div style="display: flex; justify-content: center;">
+                <HomeView v-if="viewSelector === 'home'" @launch-app="setAppView($event)" />
+            </div>
         </template>
     </SidePanelViewContainer>
+
+    <Modal @close="showAboutModal = false" v-show="showAboutModal">
+        <AboutView />
+    </Modal>
 
     <div v-show="appBox.shown" class="app-container" :style="{
         top: appBox.top,
