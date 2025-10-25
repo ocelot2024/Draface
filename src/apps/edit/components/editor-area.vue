@@ -56,6 +56,7 @@ onBeforeUnmount(() => {
     width: 100%;
     height: 100%;
     overflow-y: auto;
+    cursor: text;
 }
 
 textarea {
