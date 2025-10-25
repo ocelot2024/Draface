@@ -20,10 +20,17 @@ const start_with_new = () => {
 <template>
     <div class="app">
         <MenuBar>
-            <MenuBarButton :label="Translated.data.edit.menubar.file">
-                <MenuBarButtonItem :key-bind="['Ctrl', 'N']" :handler="start_with_new">新規</MenuBarButtonItem>
+            <MenuBarButton :label="Translated.data.edit.menubar.file.label">
+                <MenuBarButtonItem :key-bind="['Ctrl', 'N']" :handler="start_with_new">
+                    {{ Translated.data.edit.menubar.file.start_with_new }}
+                </MenuBarButtonItem>
                 <MenuBarButtonItemDevider />
-                <MenuBarButtonItem :key-bind="['Ctrl', 'Q']" :handler="() => pickFile(['*', true])">閉じる
+                <MenuBarButtonItem :key-bind="['Ctrl', 'S']" :handler="() => instance.save_to_local()">
+                    {{ Translated.data.edit.menubar.file.save_to_local }}
+                </MenuBarButtonItem>
+                <MenuBarButtonItemDevider />
+                <MenuBarButtonItem :key-bind="['Ctrl', 'Q']" :handler="() => pickFile(['*', true])">
+                    {{ Translated.data.edit.menubar.file.quit }}
                 </MenuBarButtonItem>
             </MenuBarButton>
         </MenuBar>

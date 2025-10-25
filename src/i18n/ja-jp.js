@@ -19,7 +19,12 @@ export default {
     },
     edit: {
         menubar: {
-            file: "ファイル",
+            file: {
+                label: "ファイル",
+                start_with_new: "新規",
+                save_to_local: "コンピュータに保存...",
+                quit: "閉じる",
+            },
         },
         file: {
             default_name: "空のテキスト",

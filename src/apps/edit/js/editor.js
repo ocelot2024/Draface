@@ -67,4 +67,14 @@ export class Editor {
         }
         return low;
     }
+    save_to_local() {
+        console.log(this.data);
+        const blob = new Blob([this.data.join("\n")], { type: "text/plain" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `${this.filename}.${this.extension}`;
+        a.click();
+        URL.revokeObjectURL(url);
+    }
 }
