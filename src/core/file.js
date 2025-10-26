@@ -10,3 +10,12 @@ export const pickFile = (accept = ["*"], multiple = false) => {
     if (multiple) tag.multiple = true;
     tag.click();
 };
+
+export const createFile = (data, mime = "text/plain") => {
+    const blob = new Blob([data], { type: mime });
+    const url = URL.createObjectURL(blob);
+    return {
+        fileURL: url,
+        discardURL: () => URL.revokeObjectURL(url),
+    };
+};

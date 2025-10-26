@@ -1,3 +1,4 @@
+import { createFile } from "@/core/file";
 import { Translated } from "@/store/translate";
 import { reactive } from "vue";
 
@@ -68,13 +69,11 @@ export class Editor {
         return low;
     }
     save_to_local() {
-        console.log(this.data);
-        const blob = new Blob([this.data.join("\n")], { type: "text/plain" });
-        const url = URL.createObjectURL(blob);
+        const file = createFile(this.data.join("\n"));
         const a = document.createElement("a");
-        a.href = url;
+        a.href = file.fileURL;
         a.download = `${this.filename}.${this.extension}`;
         a.click();
-        URL.revokeObjectURL(url);
+        file.discardURL();
     }
 }

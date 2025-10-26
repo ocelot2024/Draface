@@ -27,7 +27,7 @@ export default {
             },
         },
         file: {
-            default_name: "空のテキスト",
+            default_name: "名称未設定",
         },
     },
 };
