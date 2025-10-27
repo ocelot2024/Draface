@@ -19,7 +19,7 @@
     flex-direction: column;
     position: sticky;
     top: 0;
-    height: 100vh;
+    height: 100dvh;
 }
 
 .footer {
