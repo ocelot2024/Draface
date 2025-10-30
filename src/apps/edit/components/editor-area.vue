@@ -10,22 +10,42 @@ const carretPos = instance.carretPos
 
 const focused = ref(false)
 
-const onInput = () => {
+const compositing = ref(false)
+
+const onInput = (e) => {
     instance.onChange(data.value);
-    instance.updateCursor(textArea.value)
+    if (!compositing.value) {
+        instance.updateCursor(textArea.value)
+    }
 }
 
 const focus = () => { textArea.value.focus(); focused.value = true }
 const unfocus = () => focused.value = false;
 
+const onComposite = (e) => {
+    compositing.value = true;
+    instance.compositing = e.data;
+}
+const onCompositeEnd = () => {
+    instance.compositing = "";
+    compositing.value = false;
+    instance.updateCursor(textArea.value);
+}
+
 onMounted(() => {
     textArea.value.addEventListener('input', onInput);
-    textArea.value.addEventListener('focusout', unfocus)
+    textArea.value.addEventListener('focusout', unfocus);
+    textArea.value.addEventListener('compositionstart', onComposite);
+    textArea.value.addEventListener('compositionupdate', onComposite);
+    textArea.value.addEventListener('compositionend', onCompositeEnd);
     focus();
 })
 onBeforeUnmount(() => {
-    textArea.value.removeEventListener('input', onInput)
-    textArea.value.removeEventListener('focusout', unfocus)
+    textArea.value.removeEventListener('input', onInput);
+    textArea.value.removeEventListener('focusout', unfocus);
+    textArea.value.removeEventListener('compositionstart', onComposite);
+    textArea.value.removeEventListener('compositionupdate', onComposite);
+    textArea.value.removeEventListener('compositionend', onCompositeEnd);
 })
 </script>
 <template>
@@ -38,6 +58,7 @@ onBeforeUnmount(() => {
                 <div class="line-content-container">
                     <template v-if="i === carretPos.line">
                         <span>{{ v.slice(0, carretPos.pos) }}</span>
+                        <span>{{ instance.compositing }}</span>
                         <span class="carret" :key="carretPos.pos" v-show="focused"><span /></span>
                         <span>{{ v.slice(carretPos.pos) }}</span>
                     </template>

@@ -1,12 +1,13 @@
 import { createFile } from "@/core/file";
 import { Translated } from "@/store/translate";
-import { reactive } from "vue";
+import { reactive, ref } from "vue";
 
 export class Editor {
     constructor() {
         this.filename = Translated.data.edit.file.default_name ?? "no_name";
         this.extension = "txt";
         this.data = reactive([""]);
+        this.compositing = ref("");
         this.lineLength = reactive([0]);
         this.historyStack = [];
         this.historyCounter = 0;
@@ -54,7 +55,6 @@ export class Editor {
             endPos - (lineIndex > 0 ? this._prefixSum[lineIndex - 1] : 0);
         this.carretPos.line = lineIndex;
         this.carretPos.pos = col;
-        console.log(this.carretPos);
     }
     _binarySearchPrefix(pos) {
         const arr = this._prefixSum;
