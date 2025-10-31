@@ -1,5 +1,5 @@
 <script setup>
-import Button from '../base/Button.vue';
+import Button from '../base/BaseButton.vue';
 defineEmits(['close'])
 </script>
 <template>

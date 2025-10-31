@@ -11,6 +11,7 @@ body * {
     color: var(--text-primary);
     font-weight: var(--font-weight-1);
     font-family: sans-serif;
+    user-select: none;
 }
 
 h1 {

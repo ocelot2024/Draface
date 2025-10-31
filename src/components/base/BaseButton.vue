@@ -1,4 +1,6 @@
 <script setup>
+import { useTemplateRef } from 'vue';
+
 const props = defineProps({
     variant: { type: String, default: "default" },
     block: { type: Boolean, default: false },
@@ -6,9 +8,12 @@ const props = defineProps({
     loading: { type: Boolean, default: false },
 })
 const emit = defineEmits(['click'])
+const root = useTemplateRef('button')
+defineExpose({ el: root })
 </script>
 <template>
-    <button @click="$emit('click')" :data-variant="props.variant" :data-block="props.block" :disabled="props.disabled">
+    <button @click="$emit('click', $event)" :data-variant="props.variant" :data-block="props.block"
+        :disabled="props.disabled" ref="button">
         <slot />
     </button>
 </template>
