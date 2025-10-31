@@ -28,6 +28,7 @@ const readAppDataFromLocalStorage = () => {
 export class AppStorage {
     constructor() {
         this.data = readAppDataFromLocalStorage();
+        this.log(SystemLogTypes.INIT);
     }
     log(type, value) {
         this.data.App.log.push(createLog(type, value));
