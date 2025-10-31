@@ -1,5 +1,5 @@
 <script setup>
-import Button from './Button.vue';
+import Button from './BaseButton.vue';
 
 defineProps({ active: { type: Boolean, default: false } })
 defineEmits(['click'])
