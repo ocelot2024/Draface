@@ -17,6 +17,7 @@ const {
     setAppView,
     HomeView,
     AboutView,
+    Modal
 } = useHQ();
 </script>
 

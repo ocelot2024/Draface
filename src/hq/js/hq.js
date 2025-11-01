@@ -100,5 +100,6 @@ export const useHQ = () => {
         setAppView,
         HomeView,
         AboutView,
+        Modal,
     };
 };
