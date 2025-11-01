@@ -7,12 +7,15 @@ export class Editor {
         this.filename = Translated.data.edit.file.default_name ?? "no_name";
         this.extension = "txt";
         this.data = reactive([""]);
-        this.compositing = ref("");
         this.lineLength = reactive([0]);
         this.historyStack = [];
         this.historyCounter = 0;
         this._prefixSum = [0];
         this.carretPos = reactive({ line: 0, pos: 0 });
+        this.textareaPos = reactive({
+            top: 0,
+            left: 0,
+        });
     }
     onChange(value) {
         if (typeof value !== "string") return;
@@ -47,7 +50,7 @@ export class Editor {
         }
         this._prefixSum = result;
     }
-    updateCursor(text_area) {
+    updateCursor(text_area, carret_ref) {
         if (!text_area?.value) return;
         const endPos = text_area.selectionEnd ?? 0;
         const lineIndex = this._binarySearchPrefix(endPos);
@@ -55,6 +58,8 @@ export class Editor {
             endPos - (lineIndex > 0 ? this._prefixSum[lineIndex - 1] : 0);
         this.carretPos.line = lineIndex;
         this.carretPos.pos = col;
+        const { top, left } = carret_ref.getBoundingClientRect();
+        this.textareaPos = { top };
     }
     _binarySearchPrefix(pos) {
         const arr = this._prefixSum;
