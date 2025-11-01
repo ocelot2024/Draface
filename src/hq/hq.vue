@@ -11,6 +11,7 @@ import { useRoute } from 'vue-router';
 import Modal from '@/components/overlay/Modal.vue';
 import Spinner from '@/components/base/Spinner.vue';
 
+const branch = __BRANCH__
 const showAboutModal = ref(false);
 
 const sidePanelItems = [
@@ -88,6 +89,7 @@ const AboutView = defineAsyncComponent({
             </SidePanelListContainer>
         </template>
         <template #pane-footer>
+            <p style="text-align: center;">{{ branch }}</p>
             <Button :block="true" variant="simple" @click="showInstallPrompt()" v-if="installPrompt">
                 {{ Translated.data.hq.navigation.install_pwa }}
             </Button>
