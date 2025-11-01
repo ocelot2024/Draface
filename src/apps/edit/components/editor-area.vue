@@ -1,48 +1,34 @@
 <script setup>
 import { inject, onBeforeUnmount, onMounted, reactive, ref, useTemplateRef } from 'vue';
 
-const data = defineModel()
+
 const instance = inject('instance')
 const lines = instance.data
 
 const textArea = useTemplateRef('textarea');
+const carret_ref = useTemplateRef('carret_ref');
+
 const carretPos = instance.carretPos
 
 const focused = ref(false)
 
 const onInput = (e) => {
     instance.onChange(textArea.value.value);
-    if (!compositing.value) {
-        instance.updateCursor(textArea.value)
-    }
+    instance.updateCursor(textArea.value, carret_ref.value[0])
 }
 
 const focus = () => { textArea.value.focus(); focused.value = true }
 const unfocus = () => focused.value = false;
 
-
-const onCompositeEnd = () => {
-    instance.compositing = "";
-    compositing.value = false;
-    instance.updateCursor(textArea.value);
-}
-
-const textareaPos = reactive({
-    top: 0,
-    left: 0,
-});
-
 onMounted(() => {
     textArea.value.addEventListener('input', onInput);
     textArea.value.addEventListener('focusout', unfocus);
-    textArea.value.addEventListener('compositionend', onCompositeEnd);
     focus();
 })
 
 onBeforeUnmount(() => {
     textArea.value.removeEventListener('input', onInput);
     textArea.value.removeEventListener('focusout', unfocus);
-    textArea.value.removeEventListener('compositionend', onCompositeEnd);
 });
 </script>
 <template>
@@ -56,7 +42,7 @@ onBeforeUnmount(() => {
                     <template v-if="i === carretPos.line">
                         <span>{{ v.slice(0, carretPos.pos) }}</span>
                         <span>{{ instance.compositing }}</span>
-                        <span class="carret" :key="carretPos.pos" v-show="focused"><span /></span>
+                        <span class="carret" :key="carretPos.pos" v-show="focused" ref="carret_ref"><span /></span>
                         <span>{{ v.slice(carretPos.pos) }}</span>
                     </template>
                     <template v-else>
@@ -66,7 +52,8 @@ onBeforeUnmount(() => {
             </div>
         </div>
     </div>
-    <textarea ref="textarea" style="position: fixed;" :style="{ ...textareaPos }"></textarea>
+    <textarea ref="textarea" style="position: fixed; width: 100%;"
+        :style="{ top: instance.textareaPos.top + 'px', left: instance.textareaPos.left + 'px' }"></textarea>
 </template>
 <style scoped>
 .editor {
