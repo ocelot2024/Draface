@@ -10,10 +10,8 @@ const carretPos = instance.carretPos
 
 const focused = ref(false)
 
-const compositing = ref(false)
-
 const onInput = (e) => {
-    instance.onChange(data.value);
+    instance.onChange(textArea.value.value);
     if (!compositing.value) {
         instance.updateCursor(textArea.value)
     }
@@ -22,31 +20,30 @@ const onInput = (e) => {
 const focus = () => { textArea.value.focus(); focused.value = true }
 const unfocus = () => focused.value = false;
 
-const onComposite = (e) => {
-    compositing.value = true;
-    instance.compositing = e.data;
-}
+
 const onCompositeEnd = () => {
     instance.compositing = "";
     compositing.value = false;
     instance.updateCursor(textArea.value);
 }
 
+const textareaPos = reactive({
+    top: 0,
+    left: 0,
+});
+
 onMounted(() => {
     textArea.value.addEventListener('input', onInput);
     textArea.value.addEventListener('focusout', unfocus);
-    textArea.value.addEventListener('compositionstart', onComposite);
-    textArea.value.addEventListener('compositionupdate', onComposite);
     textArea.value.addEventListener('compositionend', onCompositeEnd);
     focus();
 })
+
 onBeforeUnmount(() => {
     textArea.value.removeEventListener('input', onInput);
     textArea.value.removeEventListener('focusout', unfocus);
-    textArea.value.removeEventListener('compositionstart', onComposite);
-    textArea.value.removeEventListener('compositionupdate', onComposite);
     textArea.value.removeEventListener('compositionend', onCompositeEnd);
-})
+});
 </script>
 <template>
     <div class="editor" @click="focus">
@@ -69,7 +66,7 @@ onBeforeUnmount(() => {
             </div>
         </div>
     </div>
-    <textarea ref="textarea"></textarea>
+    <textarea ref="textarea" style="position: fixed;" :style="{ ...textareaPos }"></textarea>
 </template>
 <style scoped>
 .editor {

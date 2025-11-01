@@ -7,7 +7,6 @@ export class Editor {
         this.filename = Translated.data.edit.file.default_name ?? "no_name";
         this.extension = "txt";
         this.data = reactive([""]);
-        this.compositing = ref("");
         this.lineLength = reactive([0]);
         this.historyStack = [];
         this.historyCounter = 0;
