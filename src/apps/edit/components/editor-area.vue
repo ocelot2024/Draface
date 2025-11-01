@@ -53,7 +53,7 @@ onBeforeUnmount(() => {
         </div>
     </div>
     <textarea ref="textarea" style="position: fixed; width: 100%;"
-        :style="{ top: instance.textareaPos.top + 'px', left: instance.textareaPos.left + 'px' }"></textarea>
+        :style="{ top: instance.textareaPos.top + 'px', left: '4rem' }"></textarea>
 </template>
 <style scoped>
 .editor {
@@ -74,10 +74,11 @@ textarea {
     width: 100%;
     overflow-wrap: anywhere;
     user-select: none;
+    line-height: 26px;
 }
 
 .line-counter {
-    min-width: 1rem;
+    min-width: 3rem;
     padding-left: 1rem;
     text-align: right;
     color: var(--text-secondary);
