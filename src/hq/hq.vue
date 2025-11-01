@@ -7,7 +7,6 @@ const {
     SidePanelListItem,
     SidePanelViewContainer,
     showInstallPrompt,
-    registerInstallPrompt,
     installPrompt,
     Translated,
     branch,
@@ -15,9 +14,7 @@ const {
     sidePanelItems,
     viewSelector,
     appBox,
-    showAppBox,
     setAppView,
-    isAppPage,
     HomeView,
     AboutView,
 } = useHQ();

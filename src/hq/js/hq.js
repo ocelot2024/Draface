@@ -90,7 +90,6 @@ export const useHQ = () => {
         SidePanelListItem,
         SidePanelViewContainer,
         showInstallPrompt,
-        registerInstallPrompt,
         installPrompt,
         Translated,
         branch,
@@ -98,9 +97,7 @@ export const useHQ = () => {
         sidePanelItems,
         viewSelector,
         appBox,
-        showAppBox,
         setAppView,
-        isAppPage,
         HomeView,
         AboutView,
     };
