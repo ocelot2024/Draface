@@ -69,7 +69,7 @@ onBeforeUnmount(() => {
             </div>
         </div>
     </div>
-    <textarea v-model="data" ref="textarea"></textarea>
+    <textarea ref="textarea"></textarea>
 </template>
 <style scoped>
 .editor {
