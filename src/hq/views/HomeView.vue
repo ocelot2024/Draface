@@ -3,15 +3,26 @@ import { Translated } from '@/store/translate';
 import apps from '@/apps/apps';
 import { reactive } from 'vue';
 import { getElementPos } from '@/core/dom';
+import { AppData } from '@/core/store';
+
 const appindex = reactive(apps);
+const recent_apps = reactive(AppData.data.HQ.AppHistory)
 defineEmits(['launchApp'])
 </script>
 <template>
     <div class="content">
         <div>
             <h1>{{ Translated.data.hq.home.home }}</h1>
-            <h2>{{ Translated.data.hq.home.apps }}</h2>
         </div>
+        <h2>{{ Translated.data.hq.home.recent_items }}</h2>
+        <div class="apps">
+            <div v-for="value in recent_apps" :key="value.id" class="app-container"
+                @click="$emit('launchApp', [getElementPos($event.target), value])">
+                <div class="app" :style="{ backgroundImage: `url(${value.icon})` }"></div>
+                <div class="app-name">{{ value.name }}</div>
+            </div>
+        </div>
+        <h2>{{ Translated.data.hq.home.apps }}</h2>
         <div class="apps">
             <div v-for="value in appindex" :key="value.id" class="app-container"
                 @click="$emit('launchApp', [getElementPos($event.target), value])">

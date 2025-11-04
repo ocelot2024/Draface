@@ -28,7 +28,6 @@ export const useHQ = () => {
 
     const sidePanelItems = [
         { id: "home", content: Translated.data.hq.navigation.to_home },
-        { id: "to_recent", content: Translated.data.hq.navigation.to_recent },
     ];
 
     const viewSelector = ref(sidePanelItems[0].id);
@@ -69,7 +68,7 @@ export const useHQ = () => {
             router.push("/app/" + appData.id);
             showAppBox();
         }, 100);
-        AppData.setNewData("HQ.AppHistory", appData);
+        AppData.setNewData("HQ.AppHistory", [appData]);
         AppData.log(SystemLogTypes.LOAD, `Launched ${appData.id}`);
     };
     const isAppPage = (to) => {
@@ -106,5 +105,6 @@ export const useHQ = () => {
         HomeView,
         AboutView,
         Modal,
+        AppData,
     };
 };
