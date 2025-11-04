@@ -66,6 +66,7 @@ onBeforeUnmount(() => {
 
 textarea {
     opacity: 0;
+    z-index: -999;
 }
 
 .line {
