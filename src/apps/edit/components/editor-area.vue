@@ -12,6 +12,10 @@ const carretPos = instance.carretPos
 
 const focused = ref(false)
 
+const updateSelecte = () => {
+    instance.updateSelection(textArea.value);
+}
+
 const onInput = (e) => {
     instance.onChange(textArea.value.value);
     instance.updateCursor(textArea.value, carret_ref.value[0])
@@ -23,6 +27,7 @@ const unfocus = () => focused.value = false;
 onMounted(() => {
     textArea.value.addEventListener('input', onInput);
     textArea.value.addEventListener('focusout', unfocus);
+    textArea.value.addEventListener('selectionchange', updateSelecte)
     focus();
 })
 
@@ -53,7 +58,7 @@ onBeforeUnmount(() => {
         </div>
     </div>
     <textarea ref="textarea" style="position: fixed; width: 100%;"
-        :style="{ top: instance.textareaPos.top + 'px', left: instance.textareaPos.left + 'px' }"></textarea>
+        :style="{ top: instance.textareaPos.top + 'px', left: '4rem' }"></textarea>
 </template>
 <style scoped>
 .editor {
@@ -66,6 +71,7 @@ onBeforeUnmount(() => {
 
 textarea {
     opacity: 0;
+    z-index: -999;
 }
 
 .line {
@@ -73,14 +79,15 @@ textarea {
     gap: var(--spacing-5);
     width: 100%;
     overflow-wrap: anywhere;
-    user-select: none;
+    line-height: 26px;
 }
 
 .line-counter {
-    min-width: 1rem;
+    min-width: 3rem;
     padding-left: 1rem;
     text-align: right;
     color: var(--text-secondary);
+    user-select: none;
 }
 
 .line-content-container {
@@ -91,6 +98,7 @@ textarea {
 .line * {
     font-family: monospace;
     font-size: 18px;
+    user-select: text;
 }
 
 .carret {

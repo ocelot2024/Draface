@@ -16,6 +16,7 @@ export class Editor {
             top: 0,
             left: 0,
         });
+        this.selectionStart = reactive({ line: 0, pos: 0 });
     }
     onChange(value) {
         if (typeof value !== "string") return;
@@ -58,6 +59,7 @@ export class Editor {
             endPos - (lineIndex > 0 ? this._prefixSum[lineIndex - 1] : 0);
         this.carretPos.line = lineIndex;
         this.carretPos.pos = col;
+        if (!carret_ref) return;
         const { top, left } = carret_ref.getBoundingClientRect();
         this.textareaPos = { top };
     }
@@ -80,5 +82,17 @@ export class Editor {
         a.download = `${this.filename}.${this.extension}`;
         a.click();
         file.discardURL();
+    }
+    updateSelection(textarea) {
+        if (!textarea.value) return;
+        //selectionEndはこっちで計算してくれる
+        this.updateCursor(textarea);
+        const startPos = textarea.selectionStart;
+        const lineIndex = this._binarySearchPrefix(startPos);
+        const col =
+            startPos - (lineIndex > 0 ? this._prefixSum[lineIndex - 1] : 0);
+        this.selectionStart.line = lineIndex;
+        this.selectionStart.pos = col;
+        console.log(this.selectionStart);
     }
 }

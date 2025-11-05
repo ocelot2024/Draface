@@ -8,6 +8,7 @@ import { onMounted, provide, reactive } from 'vue';
 import { Editor } from './js/editor';
 import { pickFile } from '@/core/file';
 import editorArea from './components/editor-area.vue';
+import router from '@/router';
 
 const instance = reactive(new Editor());
 
@@ -29,7 +30,7 @@ const start_with_new = () => {
                     {{ Translated.data.edit.menubar.file.save_to_local }}
                 </MenuBarButtonItem>
                 <MenuBarButtonItemDevider />
-                <MenuBarButtonItem :key-bind="['Ctrl', 'Q']" :handler="() => pickFile(['*', true])">
+                <MenuBarButtonItem :key-bind="['Ctrl', 'Q']" :handler="() => router.push('/')">
                     {{ Translated.data.edit.menubar.file.quit }}
                 </MenuBarButtonItem>
             </MenuBarButton>
