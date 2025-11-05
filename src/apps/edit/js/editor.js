@@ -1,9 +1,9 @@
 import { createFile } from "@/core/file";
 import { Translated } from "@/store/translate";
-import { reactive, ref } from "vue";
+import { reactive } from "vue";
 
 export class Editor {
-    constructor() {
+    constructor(textarea, carret_ref) {
         this.filename = Translated.data.edit.file.default_name ?? "no_name";
         this.extension = "txt";
         this.data = reactive([""]);
@@ -17,7 +17,25 @@ export class Editor {
             left: 0,
         });
         this.selectionStart = reactive({ line: 0, pos: 0 });
+        this.textareaRef = textarea;
+        this.carret_ref = carret_ref;
+        this.init(textarea, carret_ref);
     }
+    init() {
+        this.filename = Translated.data.edit.file.default_name ?? "no_name";
+        this.extension = "txt";
+
+        this.data.splice(0, this.data.length, "");
+        this.lineLength.splice(0, this.lineLength.length, 0);
+
+        this.carretPos.line = 0;
+        this.carretPos.pos = 0;
+        this.textareaPos.top = 0;
+        this.textareaPos.left = 0;
+        this.selectionStart.line = 0;
+        this.selectionStart.pos = 0;
+    }
+
     onChange(value) {
         if (typeof value !== "string") return;
         const newLines = value.replace(/\r\n/g, "\n").split("\n");

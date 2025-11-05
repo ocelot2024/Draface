@@ -1,8 +1,10 @@
 <script setup>
-import { inject, onBeforeUnmount, onMounted, ref, useTemplateRef } from 'vue';
+import { inject, onBeforeUnmount, onMounted, reactive, ref, useTemplateRef } from 'vue';
+import { Editor } from '../js/editor';
 
+const instance = reactive(new Editor())
 
-const instance = inject('instance')
+//const instance = inject('instance')
 const lines = instance.data
 
 const textArea = useTemplateRef('textarea');
@@ -25,6 +27,7 @@ const focus = () => { textArea.value.focus(); focused.value = true }
 const unfocus = () => focused.value = false;
 
 onMounted(() => {
+    instance.init(textArea, carret_ref);
     textArea.value.addEventListener('input', onInput);
     textArea.value.addEventListener('focusout', unfocus);
     textArea.value.addEventListener('selectionchange', updateSelecte)
