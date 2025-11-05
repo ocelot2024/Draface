@@ -4,9 +4,8 @@ import MenuBarButton from '@/components/layouts/MenuBarButton.vue';
 import MenuBarButtonItem from '@/components/layouts/MenuBarButtonItem.vue';
 import MenuBarButtonItemDevider from '@/components/layouts/MenuBarButtonItemDevider.vue';
 import { Translated } from '@/store/translate';
-import { onMounted, provide, reactive } from 'vue';
+import { provide, reactive } from 'vue';
 import { Editor } from './js/editor';
-import { pickFile } from '@/core/file';
 import editorArea from './components/editor-area.vue';
 import router from '@/router';
 
