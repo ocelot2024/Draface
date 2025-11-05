@@ -12,6 +12,10 @@ const carretPos = instance.carretPos
 
 const focused = ref(false)
 
+const updateSelecte = () => {
+    instance.updateSelection(textArea.value);
+}
+
 const onInput = (e) => {
     instance.onChange(textArea.value.value);
     instance.updateCursor(textArea.value, carret_ref.value[0])
@@ -23,6 +27,7 @@ const unfocus = () => focused.value = false;
 onMounted(() => {
     textArea.value.addEventListener('input', onInput);
     textArea.value.addEventListener('focusout', unfocus);
+    textArea.value.addEventListener('selectionchange', updateSelecte)
     focus();
 })
 
@@ -74,7 +79,6 @@ textarea {
     gap: var(--spacing-5);
     width: 100%;
     overflow-wrap: anywhere;
-    user-select: none;
     line-height: 26px;
 }
 
@@ -83,6 +87,7 @@ textarea {
     padding-left: 1rem;
     text-align: right;
     color: var(--text-secondary);
+    user-select: none;
 }
 
 .line-content-container {
@@ -93,6 +98,7 @@ textarea {
 .line * {
     font-family: monospace;
     font-size: 18px;
+    user-select: text;
 }
 
 .carret {
