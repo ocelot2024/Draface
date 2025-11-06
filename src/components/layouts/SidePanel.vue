@@ -26,7 +26,7 @@ const showPane = ref(true);
 </template>
 <style scoped>
 .container {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     border-right: var(--border-1);
     width: 300px;
     background-color: var(--background-1);
