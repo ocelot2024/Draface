@@ -5,12 +5,12 @@ export default {
     hq: {
         navigation: {
             to_home: "ホーム",
-            to_recent: "最近の項目",
             install_pwa: "PWAをインストール",
             about: "Drafaceについて",
         },
         home: {
             home: "ホーム",
+            recent_items: "最近使った項目",
             apps: "アプリ",
         },
         about: {

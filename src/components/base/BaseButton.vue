@@ -55,6 +55,15 @@ button[data-block="true"] {
     width: 100%;
 }
 
+button[data-variant="icon"] {
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    border: 0;
+}
+
 button:disabled {
     color: var(--text-muted);
     cursor: not-allowed;
