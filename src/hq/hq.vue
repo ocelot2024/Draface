@@ -17,7 +17,8 @@ const {
     setAppView,
     HomeView,
     AboutView,
-    Modal
+    Modal,
+    PrefView
 } = useHQ();
 </script>
 
@@ -42,9 +43,8 @@ const {
             </Button>
         </template>
         <template #content>
-            <div style="display: flex; justify-content: center;">
-                <HomeView v-if="viewSelector === 'home'" @launch-app="setAppView($event)" />
-            </div>
+            <HomeView v-if="viewSelector === 'home'" @launch-app="setAppView($event)" />
+            <PrefView v-if="viewSelector === 'pref'" @opened="" />
         </template>
     </SidePanelViewContainer>
 
