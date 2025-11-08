@@ -23,3 +23,7 @@ h2 {
     font-size: var(--font-size-2);
     font-weight: var(--font-weight-2);
 }
+.content {
+    padding: var(--spacing-4);
+    width: 100%;
+}

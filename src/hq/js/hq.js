@@ -28,6 +28,7 @@ export const useHQ = () => {
 
     const sidePanelItems = [
         { id: "home", content: Translated.data.hq.navigation.to_home },
+        { id: "pref", content: Translated.data.hq.navigation.system_pref },
     ];
 
     const viewSelector = ref(sidePanelItems[0].id);
@@ -88,6 +89,10 @@ export const useHQ = () => {
         loader: () => import("../views/AboutView.vue"),
         loadingComponent: Spinner,
     });
+    const PrefView = defineAsyncComponent({
+        loader: () => import("../views/Pref.vue"),
+        loadingComponent: Spinner,
+    });
     return {
         Button,
         SidePanelListContainer,
@@ -106,5 +111,6 @@ export const useHQ = () => {
         AboutView,
         Modal,
         AppData,
+        PrefView,
     };
 };

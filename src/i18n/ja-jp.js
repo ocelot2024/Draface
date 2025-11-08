@@ -5,6 +5,7 @@ export default {
     hq: {
         navigation: {
             to_home: "ホーム",
+            system_pref: "環境設定",
             install_pwa: "PWAをインストール",
             about: "Drafaceについて",
         },
@@ -15,6 +16,14 @@ export default {
         },
         about: {
             describe: "シンプルなオフィススイート",
+        },
+        pref: {
+            name: "環境設定",
+            prefSections: {
+                general: "一般",
+                aboutAndThanks: "情報と謝辞",
+                privacy: "プライバシー",
+            },
         },
     },
     edit: {

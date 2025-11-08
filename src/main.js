@@ -13,6 +13,25 @@ const init = async () => {
     const app = createApp(App);
     app.use(router);
     app.mount("#app");
+    if (__BRANCH__ == "deploy") {
+        document.body.insertAdjacentHTML(
+            "beforeend",
+            `<!-- Google tag (gtag.js) -->
+                <script
+                    async
+                    src="https://www.googletagmanager.com/gtag/js?id=G-G07C5V6Z5Z">
+                </script>
+                <script>
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag() {
+                        dataLayer.push(arguments);
+                    }
+                    gtag("js", new Date());
+                    gtag("config", "G-G07C5V6Z5Z");
+                </script>
+            `
+        );
+    }
 };
 
 window.addEventListener("load", init);
