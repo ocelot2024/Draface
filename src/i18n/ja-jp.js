@@ -7,7 +7,7 @@ export default {
             to_home: "ホーム",
             system_pref: "環境設定",
             install_pwa: "PWAをインストール",
-            about: "Drafaceについて",
+            about: "Draface について",
         },
         home: {
             home: "ホーム",
@@ -26,11 +26,11 @@ export default {
             },
             prefLabels: {
                 askClearData:
-                    "ブラウザに保存されているすべての設定とログが削除されます。コンピュータにダウンロードされた書類には影響しません。",
+                    "ブラウザに保存されているすべての設定とログが削除されます。ダウンロード済みの書類には影響しません。",
                 clearAllDatas: "すべてのデータを削除",
                 about: "Drafaceについて",
                 OSSLicenses: "OSSライセンス",
-                enableLogging: "ログの作成",
+                enableLogging: "ログの有効化",
             },
         },
     },
