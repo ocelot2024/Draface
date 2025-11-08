@@ -3,6 +3,8 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/outline';
 import BaseButton from '../base/BaseButton.vue';
 import { ref } from 'vue';
 
+defineProps({ hideable: { type: Boolean, default: true } })
+
 const showPane = ref(true);
 </script>
 <template>
@@ -11,7 +13,7 @@ const showPane = ref(true);
     </BaseButton>
     <div class="container" :class="{ hide: !showPane }">
         <header>
-            <BaseButton variant="icon" @click="showPane = !showPane">
+            <BaseButton variant="icon" @click="showPane = !showPane" v-if="hideable">
                 <ChevronLeftIcon v-if="showPane" />
                 <ChevronRightIcon v-if="!showPane" />
             </BaseButton>
@@ -26,7 +28,7 @@ const showPane = ref(true);
 </template>
 <style scoped>
 .container {
-    transition: all .2s cubic-bezier(0.22, 1, 0.58, 1);
+    transition: all 0.35s cubic-bezier(0.4, 1, 0.4, 1);
     border-right: var(--border-1);
     width: 300px;
     background-color: var(--background-1);

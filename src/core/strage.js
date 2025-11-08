@@ -1,6 +1,8 @@
+import { defaultPref } from "@/hq/js/Prefs";
 import { createLog, SystemLogTypes } from "./log_util";
 
 const defaultAppData = {
+    Pref: defaultPref,
     HQ: {
         AppHistory: [],
     },
@@ -70,5 +72,8 @@ export class AppStorage {
             )
         );
         this.save();
+    }
+    clearData() {
+        localStorage.setItem("appData", "");
     }
 }

@@ -12,6 +12,7 @@ body * {
     font-weight: var(--font-weight-1);
     font-family: sans-serif;
     user-select: none;
+    transition: all 0.2s ease-in-out;
 }
 
 h1 {
@@ -22,4 +23,8 @@ h1 {
 h2 {
     font-size: var(--font-size-2);
     font-weight: var(--font-weight-2);
+}
+.content {
+    padding: var(--spacing-4);
+    width: 100%;
 }

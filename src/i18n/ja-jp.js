@@ -5,8 +5,9 @@ export default {
     hq: {
         navigation: {
             to_home: "ホーム",
+            system_pref: "環境設定",
             install_pwa: "PWAをインストール",
-            about: "Drafaceについて",
+            about: "Draface について",
         },
         home: {
             home: "ホーム",
@@ -15,6 +16,22 @@ export default {
         },
         about: {
             describe: "シンプルなオフィススイート",
+        },
+        pref: {
+            name: "環境設定",
+            prefSections: {
+                general: "一般",
+                aboutAndThanks: "情報と謝辞",
+                privacy: "プライバシー",
+            },
+            prefLabels: {
+                askClearData:
+                    "ブラウザに保存されているすべての設定とログが削除されます。ダウンロード済みの書類には影響しません。",
+                clearAllDatas: "すべてのデータを削除",
+                about: "Drafaceについて",
+                OSSLicenses: "OSSライセンス",
+                enableLogging: "ログの有効化",
+            },
         },
     },
     edit: {
