@@ -24,6 +24,14 @@ export default {
                 aboutAndThanks: "情報と謝辞",
                 privacy: "プライバシー",
             },
+            prefLabels: {
+                askClearData:
+                    "ブラウザに保存されているすべての設定とログが削除されます。コンピュータにダウンロードされた書類には影響しません。",
+                clearAllDatas: "すべてのデータを削除",
+                about: "Drafaceについて",
+                OSSLicenses: "OSSライセンス",
+                enableLogging: "ログの作成",
+            },
         },
     },
     edit: {
