@@ -22,6 +22,7 @@ import SidePanel from './SidePanel.vue';
     min-width: 100%;
     min-height: 100vh;
     align-items: stretch;
+    gap: var(--spacing-4);
 }
 
 .contents-area {

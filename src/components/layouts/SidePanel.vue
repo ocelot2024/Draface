@@ -42,11 +42,12 @@ const showPane = ref(true);
 }
 
 .container.hide {
-    width: calc(var(--spacing-4)*2);
+    width: 0;
     border-color: transparent;
     overflow-x: hidden;
     opacity: 0;
     white-space: nowrap;
+    padding: 0;
 }
 
 .showButton {
