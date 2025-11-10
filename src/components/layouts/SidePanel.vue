@@ -61,6 +61,7 @@ header {
     display: flex;
     justify-content: right;
     width: 100%;
+    min-height: 32px;
 }
 
 
