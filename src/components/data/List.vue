@@ -38,6 +38,7 @@ const emit = defineEmits(['selected'])
 
 .item {
     padding: var(--spacing-2);
+		transition:all 0;
 }
 
 .item:last-child {
