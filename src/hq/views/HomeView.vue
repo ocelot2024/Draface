@@ -10,6 +10,7 @@ const recent_apps = reactive(AppData.data.HQ.AppHistory)
 defineEmits(['launchApp'])
 </script>
 <template>
+    <header style="height: 32px;" />
     <div class="content">
         <div>
             <h1>{{ Translated.data.hq.home.home }}</h1>
