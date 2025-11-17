@@ -34,6 +34,17 @@ const selected = (listItemIndex, targetList) => {
                 </div>
             </template>
         </SidePanel>
+        <div class="prefView">
+            <div v-if="lists[0] !== undefined">
+                <h1>{{Translated.data.hq.pref.prefSections[PrefItems[lists.findIndex(v => v >
+                    -1)][lists[lists.findIndex(v =>
+                        v >
+                        -1)]].name]}}</h1>
+                <div
+                    style="background-color: var(--background-0); border-radius: var(--border-radius-4); padding: var(--spacing-2); margin-top: var(--spacing-4);">
+                    a</div>
+            </div>
+        </div>
     </div>
 </template>
 <style scoped>
@@ -47,5 +58,16 @@ const selected = (listItemIndex, targetList) => {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-4);
+}
+
+.list-container div {
+    cursor: pointer;
+}
+
+.prefView {
+    padding: var(--spacing-4);
+    padding-top: calc(var(--spacing-4) + 32px);
+    background-color: var(--background-1);
+    flex: 1;
 }
 </style>
