@@ -1,98 +1,40 @@
-import { createFile } from "@/core/file";
-import { Translated } from "@/store/translate";
-import { reactive, ref } from "vue";
-
-export class Editor {
+export default class Editor {
     constructor() {
-        this.filename = Translated.data.edit.file.default_name ?? "no_name";
-        this.extension = "txt";
-        this.data = reactive([""]);
-        this.lineLength = reactive([0]);
-        this.historyStack = [];
-        this.historyCounter = 0;
-        this._prefixSum = [0];
-        this.carretPos = reactive({ line: 0, pos: 0 });
-        this.textareaPos = reactive({
-            top: 0,
-            left: 0,
-        });
-        this.selectionStart = reactive({ line: 0, pos: 0 });
-    }
-    onChange(value) {
-        if (typeof value !== "string") return;
-        const newLines = value.replace(/\r\n/g, "\n").split("\n");
-        const oldLines = this.data;
-        const lengths = this.lineLength;
-        const minLen = Math.min(oldLines.length, newLines.length);
+        this.data = "";
+        this.editorArea = "";
+        this.isCompositing = false;
 
-        for (let i = 0; i < minLen; i++) {
-            if (oldLines[i] !== newLines[i]) {
-                oldLines[i] = newLines[i];
-                lengths[i] = newLines[i].length;
-            }
+        this.onKeydown = this.onKeydown.bind(this);
+        this.onCompositionStart = this.onCompositionStart.bind(this);
+        this.onCompositionEnd = this.onCompositionEnd.bind(this);
+    }
+    onKeydown(e) {
+        const keyCode = e.code;
+        const key = e.key;
+        const value = this.editorArea.value.innerText;
+        if (keyCode == "Enter" && !this.isCompositing) {
+            e.preventDefault();
+            const selection = window.getSelection();
+            const range = selection.getRangeAt(0).endOffset;
+            this.editorArea.value.innerText =
+                value.substring(0, range) + "\n" + value.substring(range);
         }
-
-        if (newLines.length > oldLines.length) {
-            const addedLines = newLines.slice(oldLines.length);
-            oldLines.push(...addedLines);
-            lengths.push(...addedLines.map((line) => line.length));
-        } else if (newLines.length < oldLines.length) {
-            oldLines.splice(newLines.length);
-            lengths.splice(newLines.length);
-        }
-        this._updatePrefixSum();
     }
-    _updatePrefixSum() {
-        const result = [];
-        let total = 0;
-        for (let i = 0; i < this.lineLength.length; i++) {
-            total += this.lineLength[i] + 1;
-            result.push(total);
-        }
-        this._prefixSum = result;
+    onCompositionStart() {
+        this.isCompositing = true;
     }
-    updateCursor(text_area, carret_ref) {
-        if (!text_area?.value) return;
-        const endPos = text_area.selectionEnd ?? 0;
-        const lineIndex = this._binarySearchPrefix(endPos);
-        const col =
-            endPos - (lineIndex > 0 ? this._prefixSum[lineIndex - 1] : 0);
-        this.carretPos.line = lineIndex;
-        this.carretPos.pos = col;
-        if (!carret_ref) return;
-        const { top, left } = carret_ref.getBoundingClientRect();
-        this.textareaPos = { top };
+    onCompositionEnd() {
+        this.isCompositing = false;
     }
-    _binarySearchPrefix(pos) {
-        const arr = this._prefixSum;
-        let low = 0,
-            high = arr.length - 1,
-            mid;
-        while (low <= high) {
-            mid = (low + high) >> 1;
-            if (pos < arr[mid]) high = mid - 1;
-            else low = mid + 1;
-        }
-        return low;
-    }
-    save_to_local() {
-        const file = createFile(this.data.join("\n"));
-        const a = document.createElement("a");
-        a.href = file.fileURL;
-        a.download = `${this.filename}.${this.extension}`;
-        a.click();
-        file.discardURL();
-    }
-    updateSelection(textarea) {
-        if (!textarea.value) return;
-        //selectionEndはこっちで計算してくれる
-        this.updateCursor(textarea);
-        const startPos = textarea.selectionStart;
-        const lineIndex = this._binarySearchPrefix(startPos);
-        const col =
-            startPos - (lineIndex > 0 ? this._prefixSum[lineIndex - 1] : 0);
-        this.selectionStart.line = lineIndex;
-        this.selectionStart.pos = col;
-        console.log(this.selectionStart);
+    setupEditor() {
+        this.editorArea.value.addEventListener("keydown", this.onKeydown);
+        this.editorArea.value.addEventListener(
+            "compositionstart",
+            this.onCompositionStart
+        );
+        this.editorArea.value.addEventListener(
+            "compositionend",
+            this.onCompositionEnd
+        );
     }
 }

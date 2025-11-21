@@ -4,18 +4,14 @@ import MenuBarButton from '@/components/layouts/MenuBarButton.vue';
 import MenuBarButtonItem from '@/components/layouts/MenuBarButtonItem.vue';
 import MenuBarButtonItemDevider from '@/components/layouts/MenuBarButtonItemDevider.vue';
 import { Translated } from '@/store/translate';
-import { onMounted, provide, reactive } from 'vue';
-import { Editor } from './js/editor';
-import { pickFile } from '@/core/file';
 import editorArea from './components/editor-area.vue';
 import router from '@/router';
 
-const instance = reactive(new Editor());
 
-provide('instance', instance)
+
 
 const start_with_new = () => {
-    Object.assign(instance, new Editor());
+    //
 }
 </script>
 <template>
@@ -26,7 +22,7 @@ const start_with_new = () => {
                     {{ Translated.data.edit.menubar.file.start_with_new }}
                 </MenuBarButtonItem>
                 <MenuBarButtonItemDevider />
-                <MenuBarButtonItem :key-bind="['Ctrl', 'S']" :handler="() => instance.save_to_local()">
+                <MenuBarButtonItem :key-bind="['Ctrl', 'S']">
                     {{ Translated.data.edit.menubar.file.save_to_local }}
                 </MenuBarButtonItem>
                 <MenuBarButtonItemDevider />
