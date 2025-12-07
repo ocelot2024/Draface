@@ -10,7 +10,7 @@ export default class Editor {
 
     onKeydown(e) {
         if (this.isCompositing) return;
-        if (keyCode === "Enter") {
+        if (e.keyCode === "Enter") {
             e.preventDefault();
             const selection = window.getSelection();
             if (!selection || selection.rangeCount === 0) {
