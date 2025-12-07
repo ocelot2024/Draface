@@ -3,9 +3,9 @@ import { onMounted, useTemplateRef } from 'vue';
 import Editor from '../js/editor';
 
 const instance = new Editor();
-instance.editorArea = useTemplateRef("editorArea");
+const editor = useTemplateRef("editorArea");
 onMounted(() => {
-    instance.setupEditor();
+    instance.setupEditor(editor.value);
 })
 </script>
 <template>

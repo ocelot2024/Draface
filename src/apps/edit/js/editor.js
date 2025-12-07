@@ -9,34 +9,31 @@ export default class Editor {
     }
 
     onKeydown(e) {
-        const keyCode = e.code;
-        const key = e.key;
-        const value = this.editorArea.value || this.editorArea.innerText;
-
-        if (keyCode === "Enter" && !this.isCompositing) {
+        if (this.isCompositing) return;
+        if (keyCode === "Enter") {
             e.preventDefault();
             const selection = window.getSelection();
-            const range = selection.getRangeAt(0);
-            const position = range.endOffset;
-            if (this.editorArea instanceof HTMLTextAreaElement) {
-                this.editorArea.value =
-                    value.substring(0, position) +
-                    "\n" +
-                    value.substring(position);
-            } else {
-                this.editorArea.innerText =
-                    value.substring(0, position) +
-                    "\n" +
-                    value.substring(position);
+            if (!selection || selection.rangeCount === 0) {
+                return setTimeout(() => this.onKeydown(e), 0);
             }
+            const range = selection.getRangeAt(0);
+            const br = document.createTextNode("\n");
+            range.insertNode(br);
+            const newRange = document.createRange();
+            newRange.setStartAfter(br);
+            newRange.collapse(true);
+            selection.removeAllRanges();
+            selection.addRange(newRange);
         }
     }
 
     onCompositionStart() {
+        console.log(true)
         this.isCompositing = true;
     }
 
     onCompositionEnd() {
+        console.log(false) ;
         this.isCompositing = false;
     }
 
@@ -52,5 +49,6 @@ export default class Editor {
             "compositionend",
             this.onCompositionEnd
         );
+        this.editorArea.focus();
     }
 }
